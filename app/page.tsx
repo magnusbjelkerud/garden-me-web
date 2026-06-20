@@ -71,6 +71,9 @@ export default function Home() {
       <section className="bg-emerald-950 text-white px-6 py-24 text-center">
         <div className="max-w-3xl mx-auto">
           <Image src="/flower.png" alt="Garden Me" width={140} height={140} className="mx-auto mb-6" priority />
+          <p className="text-emerald-500 text-lg font-medium mb-1 tracking-wide">
+            Pardon me, it&apos;s actually...
+          </p>
           <h1 className="text-5xl font-extrabold mb-4 leading-tight">Garden Me</h1>
           <p className="text-emerald-300 text-2xl font-medium mb-4">
             Because your plants can&apos;t text you when they&apos;re dying.
