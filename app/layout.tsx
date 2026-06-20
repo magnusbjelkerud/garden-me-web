@@ -15,11 +15,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Garden Me — Your garden's personal assistant",
   description: "AI plant identification, year-round care reminders, pest tracking, and weather alerts. For iOS and Android.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Garden Me",
     description: "Because your plants can't text you when they're dying.",
     url: "https://gardenme.app",
     siteName: "Garden Me",
+    images: [{ url: "/icon.png", width: 1024, height: 1024 }],
   },
 };
 

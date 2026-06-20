@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   const features = [
     {
@@ -56,7 +58,7 @@ export default function Home() {
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
         <div className="flex items-center gap-2 text-xl font-bold text-emerald-800">
-          <span className="text-2xl">🌿</span> Garden Me
+          <Image src="/flower.png" alt="Garden Me" width={32} height={32} /> Garden Me
         </div>
         <div className="flex gap-6 text-sm text-gray-500">
           <a href="#features" className="hover:text-emerald-700 transition-colors">Features</a>
@@ -68,7 +70,7 @@ export default function Home() {
       {/* Hero */}
       <section className="bg-emerald-950 text-white px-6 py-24 text-center">
         <div className="max-w-3xl mx-auto">
-          <div className="text-7xl mb-6">🌿</div>
+          <Image src="/flower.png" alt="Garden Me" width={140} height={140} className="mx-auto mb-6" priority />
           <h1 className="text-5xl font-extrabold mb-4 leading-tight">Garden Me</h1>
           <p className="text-emerald-300 text-2xl font-medium mb-4">
             Because your plants can&apos;t text you when they&apos;re dying.
@@ -157,7 +159,7 @@ export default function Home() {
       {/* Final CTA */}
       <section className="bg-emerald-950 text-white py-20 px-6 text-center">
         <div className="max-w-xl mx-auto">
-          <div className="text-5xl mb-4">🌿</div>
+          <Image src="/flower.png" alt="Garden Me" width={90} height={90} className="mx-auto mb-4" />
           <h2 className="text-3xl font-bold mb-4">Ready to stop killing plants?</h2>
           <p className="text-emerald-400 mb-8">Download Garden Me. Your garden will notice.</p>
           <div className="flex gap-4 justify-center flex-wrap">
