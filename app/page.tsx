@@ -52,6 +52,15 @@ export default function Home() {
     },
   ];
 
+  const plantQuotes = [
+    { who: "A fern, formerly", text: "I asked for water for SIX WEEKS. Nobody listened. Then they got the app. RIP me." },
+    { who: "A very smug cactus", text: "Honestly I didn't need the app. But my owner did. Constantly." },
+    { who: "A brown slug, 1 star", text: "Terrible. They found me immediately. Removed me humanely. Where's the fun in that? 👿" },
+    { who: "A tomato plant", text: "Got a frost warning at 10pm. Got covered. Survived. I owe this app my marinara." },
+    { who: "A rose bush", text: "Finally someone who knows when to prune me. The audacity I endured before this." },
+    { who: "An anonymous weed", text: "Would not recommend. Got registered as a 'Garden Devil'. The disrespect. The accuracy." },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
 
@@ -76,11 +85,11 @@ export default function Home() {
           </p>
           <h1 className="text-5xl font-extrabold mb-4 leading-tight">Garden Me</h1>
           <p className="text-emerald-300 text-2xl font-medium mb-4">
-            Because your plants can&apos;t text you when they&apos;re dying.
+            Your plants are screaming. You just can&apos;t hear them. <span className="text-lime-400">We can.</span>
           </p>
           <p className="text-emerald-400 text-lg mb-10 max-w-xl mx-auto">
             AI plant identification, year-round care reminders, pest tracking, and weather alerts —
-            for people who take their garden seriously. Or at least feel bad when things die.
+            for green thumbs and serial plant killers alike. No judgment. Mostly.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a href="#" className="bg-white text-emerald-900 font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-50 transition-colors">
@@ -90,7 +99,14 @@ export default function Home() {
               🤖 Google Play
             </a>
           </div>
-          <p className="text-emerald-600 text-sm mt-6">Free to download. No subscription. No hidden fees. Just plants.</p>
+          <p className="text-emerald-600 text-sm mt-6">Side effects include actually keeping things alive.</p>
+        </div>
+      </section>
+
+      {/* Scrolling humour ticker */}
+      <section className="bg-lime-400 text-emerald-950 py-3 overflow-hidden whitespace-nowrap">
+        <div className="text-sm font-semibold tracking-wide animate-pulse text-center px-4">
+          🌱 Free to download · No subscription · No hidden fees · 100% fewer dead ferns* · *results may vary 🌱
         </div>
       </section>
 
@@ -115,7 +131,7 @@ export default function Home() {
           Everything your garden needs. Nothing it doesn&apos;t.
         </h2>
         <p className="text-center text-gray-500 mb-16 text-lg">
-          Except rain. We can&apos;t actually make it rain.
+          Except rain. We can&apos;t actually make it rain. We&apos;ve tried.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f) => (
@@ -128,10 +144,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Garden Devils spotlight */}
+      <section className="bg-red-950 text-white py-20 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="text-5xl mb-4">👿</div>
+          <h2 className="text-3xl font-bold mb-4">Meet the Garden Devils</h2>
+          <p className="text-red-200 text-lg mb-10">
+            Every garden has enemies. Slugs that appear after rain like tiny gelatinous ninjas.
+            Weeds with more ambition than your houseplants. We help you identify them, track them,
+            and defeat them — using only natural, non-toxic methods. (We never recommend dangerous chemicals. The slugs do not deserve a war crime.)
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+            {[
+              { e: "🐌", n: "Slugs", d: "Active after rain. Ravenous. Slow, but committed." },
+              { e: "🌿", n: "Weeds", d: "They were here first. They will be here last." },
+              { e: "🐛", n: "Pests", d: "Tiny. Many. Hungry for your hostas." },
+              { e: "🍄", n: "Disease", d: "Damp weather's favourite houseguest." },
+            ].map((d) => (
+              <div key={d.n} className="bg-red-900/50 rounded-xl p-4 border border-red-800">
+                <div className="text-3xl mb-1">{d.e}</div>
+                <div className="font-bold text-white mb-1">{d.n}</div>
+                <p className="text-red-300 text-xs leading-relaxed">{d.d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-red-400 text-sm mt-8 italic">
+            And when it all gets too much? There&apos;s an &quot;I surrender&quot; button that finds professional gardeners near you. No shame. Only survival.
+          </p>
+        </div>
+      </section>
+
       {/* Who is it for */}
       <section className="bg-lime-50 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-emerald-900 mb-12">Who is Garden Me for?</h2>
+          <h2 className="text-3xl font-bold text-emerald-900 mb-2">Who is Garden Me for?</h2>
+          <p className="text-gray-500 mb-12">Spoiler: probably you.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {personas.map((p) => (
               <div key={p.who} className="bg-white rounded-2xl p-6 shadow-sm border border-lime-100">
@@ -141,6 +188,21 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Plant testimonials */}
+      <section className="py-20 px-6 max-w-5xl mx-auto">
+        <h2 className="text-3xl font-bold text-center text-emerald-900 mb-2">What the garden is saying</h2>
+        <p className="text-center text-gray-500 mb-12">Reviews from actual plants. And one slug.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {plantQuotes.map((q) => (
+            <div key={q.who} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div className="text-yellow-400 mb-2">★★★★★</div>
+              <p className="text-gray-700 text-sm leading-relaxed mb-3 italic">&quot;{q.text}&quot;</p>
+              <p className="text-emerald-700 text-xs font-semibold">— {q.who}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -164,7 +226,7 @@ export default function Home() {
         <div className="max-w-xl mx-auto">
           <Image src="/flower.png" alt="Garden Me" width={90} height={90} className="mx-auto mb-4" />
           <h2 className="text-3xl font-bold mb-4">Ready to stop killing plants?</h2>
-          <p className="text-emerald-400 mb-8">Download Garden Me. Your garden will notice.</p>
+          <p className="text-emerald-400 mb-8">Download Garden Me. Your garden will notice. Your ferns will weep with joy.</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a href="#" className="bg-white text-emerald-900 font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-50 transition-colors">
               🍎 App Store
@@ -179,7 +241,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-emerald-950 border-t border-emerald-900 py-8 px-6">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-emerald-600">
-          <span>🌿 © 2026 Garden Me. No plants were harmed in the making of this app.</span>
+          <span>🌿 © 2026 Garden Me. No plants were harmed in the making of this app. A few slugs were politely relocated.</span>
           <div className="flex gap-6">
             <a href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</a>
