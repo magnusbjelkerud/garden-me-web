@@ -30,6 +30,11 @@ export default function Home() {
       desc: "Tag each plant as freshly planted, settling in, or well established. A seedling and a veteran want entirely different things — and only one of them is permitted to be dramatic about it.",
     },
     {
+      icon: "🪴",
+      title: "Garden, Terrace or Balcony",
+      desc: "A window box has nothing in common with an acre. Tell us whether you tend a garden, a terrace, or a single balcony, and the watering, feeding and overwintering advice adapts to your soil — or your charming lack of it.",
+    },
+    {
       icon: "✓",
       title: "Lists That Write Themselves",
       desc: "Shopping and equipment lists, composed automatically from what your garden actually contains. Each item tied to a specific plant or pest. No generic 'buy fertiliser'. The real kind.",
@@ -161,6 +166,21 @@ export default function Home() {
               <p className="text-sm leading-relaxed" style={{ color: "#4d5a2a" }}>{f.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* All sizes band */}
+      <section className="py-20 px-6 text-center" style={{ backgroundColor: "#9aa861" }}>
+        <div className="max-w-3xl mx-auto">
+          <p style={{ color: "#2c3517" }} className="text-sm tracking-[0.3em] uppercase mb-4">For every green space</p>
+          <h2 style={{ ...serif, color: "#2c3517" }} className="text-4xl font-semibold mb-4">
+            From a single pot to a teeming plant kingdom.
+          </h2>
+          <p className="text-lg leading-relaxed" style={{ color: "#2c3517" }}>
+            You need not own an acre to be a gardener. Whether you tend one brave geranium on a city balcony,
+            a cluster of pots on a terrace, or a sprawling, opulent realm of green — Garden Me fits every size,
+            and tailors its advice to the soil you actually have.
+          </p>
         </div>
       </section>
 
