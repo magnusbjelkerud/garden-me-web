@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const serif = Cormorant_Garamond({
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sans = Jost({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gardenme.app"),
   title: "Garden Me — Your garden's personal assistant",
   description: "AI plant identification, year-round care reminders, pest tracking, and weather alerts. For iOS and Android.",
   icons: {
@@ -36,9 +38,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${serif.variable} ${sans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col" style={{ fontFamily: "var(--font-sans)" }}>{children}</body>
     </html>
   );
 }

@@ -1,251 +1,260 @@
 import Image from "next/image";
 
+const serif = { fontFamily: "var(--font-serif)" };
+
 export default function Home() {
   const features = [
     {
       icon: "🔍",
       title: "Plant Detective",
-      desc: "Snap a photo and get an instant AI identification. Works on roses, weeds, and that mysterious thing growing under the fence that your neighbour swears is ornamental.",
+      desc: "Photograph any plant and receive an instant identification. Roses, rare perennials, or that mysterious thing by the fence your neighbour swears is ornamental.",
     },
     {
       icon: "📅",
-      title: "The Nagging Calendar",
-      desc: "Year-round care reminders for every plant in your garden. We push-notify you when it's time to prune, water, or fertilise — so you stop discovering dead things in October.",
+      title: "The Quiet Reminder",
+      desc: "Year-round care notifications for every plant you own. We tell you when to prune, water, and feed — so nothing is discovered, browned and lifeless, come October.",
     },
     {
-      icon: "👿",
-      title: "Garden Devil Registry",
-      desc: "Slugs. Weeds. Invasive species. Register your enemies, track their spread, and get safe removal advice. Violence against plants strictly prohibited. Slugs: negotiable.",
+      icon: "❦",
+      title: "The Garden Devils",
+      desc: "Slugs, weeds, invasive species. Identify your adversaries, track their advance, and receive removal advice — natural methods only. The slugs do not deserve a war crime.",
     },
     {
-      icon: "🌤️",
-      title: "Weather Patrol",
-      desc: "Push alerts when frost, drought, or heavy rain threatens your specific garden. Even when you haven't opened the app in two weeks and have completely forgotten the garden exists.",
+      icon: "☂",
+      title: "Weather Watch",
+      desc: "Push alerts when frost, drought, or heavy rain threatens your particular garden. Even when you have not opened the app in a fortnight and forgotten the garden exists.",
     },
     {
-      icon: "🌍",
-      title: "Speaks Your Language",
-      desc: "Norwegian, Swedish, Danish, English, German, Dutch. Climate-aware advice per country. The plants don't care about borders. We do, a little.",
+      icon: "✦",
+      title: "Six Languages",
+      desc: "Norwegian, Swedish, Danish, English, German, Dutch — with climate-aware advice for each country. The plants care nothing for borders. We care, a little.",
     },
     {
-      icon: "🤖",
+      icon: "❉",
       title: "Powered by Claude AI",
-      desc: "Not the kind of AI that confidently tells you a cactus needs daily watering. The kind that knows the difference between a rose and a ranunculus — and admits when it's not sure.",
+      desc: "Not the kind of AI that insists a cactus needs daily watering. The kind that knows a rose from a ranunculus — and has the grace to admit when it is uncertain.",
     },
   ];
 
   const personas = [
     {
-      emoji: "🌷",
-      who: "The enthusiast",
-      desc: "You have opinions about soil pH and buy plants before you know where to put them. Garden Me finally organises your beautiful chaos.",
+      who: "The Connoisseur",
+      desc: "You hold opinions on soil pH and acquire plants before deciding where they shall live. Garden Me brings order to your magnificent chaos.",
     },
     {
-      emoji: "😬",
-      who: "The reluctant gardener",
-      desc: "You inherited a garden and are doing your best. Garden Me tells you what things are, what they need, and whether to panic.",
+      who: "The Reluctant Heir",
+      desc: "You inherited a garden and are doing your best. Garden Me tells you what things are, what they require, and whether the moment calls for panic.",
     },
     {
-      emoji: "🏡",
-      who: "The cabin owner",
-      desc: "You visit four times a year and something always dies in between. With weather alerts and care reminders, maybe not this year.",
+      who: "The Absent Landlord",
+      desc: "You visit the cabin four times a year, and something always perishes in between. With weather alerts and care reminders — perhaps not this year.",
     },
   ];
 
-  const plantQuotes = [
-    { who: "A fern, formerly", text: "I asked for water for SIX WEEKS. Nobody listened. Then they got the app. RIP me." },
-    { who: "A very smug cactus", text: "Honestly I didn't need the app. But my owner did. Constantly." },
-    { who: "A brown slug, 1 star", text: "Terrible. They found me immediately. Removed me humanely. Where's the fun in that? 👿" },
-    { who: "A tomato plant", text: "Got a frost warning at 10pm. Got covered. Survived. I owe this app my marinara." },
-    { who: "A rose bush", text: "Finally someone who knows when to prune me. The audacity I endured before this." },
-    { who: "An anonymous weed", text: "Would not recommend. Got registered as a 'Garden Devil'. The disrespect. The accuracy." },
+  const quotes = [
+    { who: "A fern, formerly", text: "I requested water for six weeks. Nobody listened. Then they installed the app. Alas, too late for me." },
+    { who: "A very smug cactus", text: "I personally required no assistance. My owner, however, required a great deal." },
+    { who: "A brown slug — one star", text: "Dreadful. They located me at once and relocated me humanely. Where is the sport in that?" },
+    { who: "A tomato plant", text: "A frost warning arrived at ten in the evening. I was covered. I survived. I owe this app my marinara." },
+    { who: "A rose bush", text: "At last, someone who knows precisely when to prune. The audacity I had endured until now." },
+    { who: "An anonymous weed", text: "Would not recommend. Registered as a 'Garden Devil'. The disrespect. The accuracy." },
   ];
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
 
       {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-        <div className="flex items-center gap-2 text-xl font-bold text-emerald-800">
-          <Image src="/flower.png" alt="Garden Me" width={32} height={32} /> Garden Me
+      <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
+        <div className="flex items-center gap-3">
+          <Image src="/logo.png" alt="Garden Me" width={36} height={36} />
+          <span style={serif} className="text-2xl font-semibold tracking-wide" >Garden Me</span>
         </div>
-        <div className="flex gap-6 text-sm text-gray-500">
-          <a href="#features" className="hover:text-emerald-700 transition-colors">Features</a>
-          <a href="/privacy" className="hover:text-emerald-700 transition-colors">Privacy</a>
-          <a href="/terms" className="hover:text-emerald-700 transition-colors">Terms</a>
+        <div className="flex gap-8 text-sm tracking-wide" style={{ color: "#4d5a2a" }}>
+          <a href="#features" className="hover:opacity-60 transition-opacity">Features</a>
+          <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
+          <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="bg-emerald-950 text-white px-6 py-24 text-center">
+      <section className="px-6 py-24 text-center" style={{ backgroundColor: "#2c3517", color: "#f6f1e6" }}>
         <div className="max-w-3xl mx-auto">
-          <Image src="/flower.png" alt="Garden Me" width={140} height={140} className="mx-auto mb-6" priority />
-          <p className="text-emerald-500 text-lg font-medium mb-1 tracking-wide">
-            Pardon me, it&apos;s actually...
+          <div className="inline-block rounded-3xl p-3 mb-8" style={{ backgroundColor: "#f6f1e6" }}>
+            <Image src="/icon.png" alt="Garden Me" width={120} height={120} className="rounded-2xl" priority />
+          </div>
+          <p style={{ color: "#c2a14e" }} className="text-base tracking-[0.3em] uppercase mb-3">
+            Pardon me — it is actually
           </p>
-          <h1 className="text-5xl font-extrabold mb-4 leading-tight">Garden Me</h1>
-          <p className="text-emerald-300 text-2xl font-medium mb-4">
-            Your plants are screaming. You just can&apos;t hear them. <span className="text-lime-400">We can.</span>
+          <h1 style={serif} className="text-6xl font-semibold mb-6 tracking-wide">Garden Me</h1>
+          <p style={{ ...serif, color: "#d2ad5c" }} className="text-3xl italic mb-6">
+            Your plants are pleading. You simply cannot hear them. We can.
           </p>
-          <p className="text-emerald-400 text-lg mb-10 max-w-xl mx-auto">
-            AI plant identification, year-round care reminders, pest tracking, and weather alerts —
-            for green thumbs and serial plant killers alike. No judgment. Mostly.
+          <p style={{ color: "#9aa861" }} className="text-lg mb-12 max-w-xl mx-auto leading-relaxed">
+            Plant identification, year-round care, pest stewardship, and weather alerts —
+            for the devoted gardener and the serial offender alike. No judgement. Very little, anyway.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <a href="#" className="bg-white text-emerald-900 font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-50 transition-colors">
-              🍎 App Store
+            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
+              App Store
             </a>
-            <a href="#" className="bg-emerald-700 text-white font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-600 transition-colors">
-              🤖 Google Play
+            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide border transition-colors" style={{ borderColor: "#9aa861", color: "#f6f1e6" }}>
+              Google Play
             </a>
           </div>
-          <p className="text-emerald-600 text-sm mt-6">Side effects include actually keeping things alive.</p>
+          <p style={{ color: "#4d5a2a" }} className="text-sm mt-8 tracking-wide">
+            Free to download. No subscription. Side effects may include keeping things alive.
+          </p>
         </div>
       </section>
 
-      {/* Scrolling humour ticker */}
-      <section className="bg-lime-400 text-emerald-950 py-3 overflow-hidden whitespace-nowrap">
-        <div className="text-sm font-semibold tracking-wide animate-pulse text-center px-4">
-          🌱 Free to download · No subscription · No hidden fees · 100% fewer dead ferns* · *results may vary 🌱
-        </div>
-      </section>
+      {/* Gold divider line */}
+      <div className="flex items-center justify-center gap-4 py-8" style={{ backgroundColor: "#38431e" }}>
+        <span style={{ color: "#c2a14e" }} className="text-lg tracking-[0.2em] text-center px-4">
+          ❦ &nbsp; Free to download · No subscription · Markedly fewer dead ferns &nbsp; ❦
+        </span>
+      </div>
 
-      {/* Fake phone mockups */}
-      <section className="bg-emerald-900 py-12 flex justify-center gap-4 overflow-hidden">
+      {/* App preview tiles */}
+      <section className="py-16 flex justify-center gap-4 flex-wrap px-6" style={{ backgroundColor: "#38431e" }}>
         {[
-          { bg: "bg-emerald-800", label: "My Garden", icon: "🌱" },
-          { bg: "bg-red-900", label: "Garden Devils", icon: "🐌" },
-          { bg: "bg-sky-900", label: "Tasks & Weather", icon: "📅" },
-          { bg: "bg-lime-800", label: "Equipment", icon: "🛠️" },
-        ].map((screen) => (
-          <div key={screen.label} className={`w-28 h-52 rounded-2xl border-2 border-emerald-700 ${screen.bg} flex-shrink-0 shadow-xl flex flex-col items-center justify-center gap-2`}>
-            <span className="text-3xl">{screen.icon}</span>
-            <span className="text-white text-xs font-semibold text-center px-2">{screen.label}</span>
+          { label: "My Garden", icon: "🌿" },
+          { label: "Garden Devils", icon: "❦" },
+          { label: "Tasks & Weather", icon: "☂" },
+          { label: "Equipment", icon: "✦" },
+        ].map((s) => (
+          <div key={s.label} className="w-28 h-52 rounded-2xl flex-shrink-0 shadow-xl flex flex-col items-center justify-center gap-3 border" style={{ backgroundColor: "#2c3517", borderColor: "#4d5a2a" }}>
+            <span className="text-3xl" style={{ color: "#c2a14e" }}>{s.icon}</span>
+            <span className="text-xs tracking-wide text-center px-2" style={{ color: "#9aa861" }}>{s.label}</span>
           </div>
         ))}
       </section>
 
       {/* Features */}
       <section id="features" className="py-24 px-6 max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-emerald-900 mb-4">
-          Everything your garden needs. Nothing it doesn&apos;t.
+        <p style={{ color: "#c2a14e" }} className="text-center text-sm tracking-[0.3em] uppercase mb-3">What it offers</p>
+        <h2 style={serif} className="text-4xl font-semibold text-center mb-4" >
+          Everything the garden requires.
         </h2>
-        <p className="text-center text-gray-500 mb-16 text-lg">
-          Except rain. We can&apos;t actually make it rain. We&apos;ve tried.
+        <p className="text-center text-lg mb-16" style={{ color: "#4d5a2a" }}>
+          Rain excepted. We have tried; the heavens are uncooperative.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((f) => (
-            <div key={f.title} className="bg-emerald-50 rounded-2xl p-6 border border-emerald-100 hover:border-emerald-300 transition-colors">
-              <div className="text-4xl mb-3">{f.icon}</div>
-              <h3 className="text-lg font-bold text-emerald-900 mb-2">{f.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
+            <div key={f.title} className="rounded-2xl p-8 border" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
+              <div className="text-3xl mb-4" style={{ color: "#c2a14e" }}>{f.icon}</div>
+              <h3 style={serif} className="text-2xl font-semibold mb-3" >{f.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#4d5a2a" }}>{f.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Garden Devils spotlight */}
-      <section className="bg-red-950 text-white py-20 px-6">
+      <section className="py-24 px-6" style={{ backgroundColor: "#2c3517", color: "#f6f1e6" }}>
         <div className="max-w-3xl mx-auto text-center">
-          <div className="text-5xl mb-4">👿</div>
-          <h2 className="text-3xl font-bold mb-4">Meet the Garden Devils</h2>
-          <p className="text-red-200 text-lg mb-10">
-            Every garden has enemies. Slugs that appear after rain like tiny gelatinous ninjas.
-            Weeds with more ambition than your houseplants. We help you identify them, track them,
-            and defeat them — using only natural, non-toxic methods. (We never recommend dangerous chemicals. The slugs do not deserve a war crime.)
+          <div className="text-4xl mb-4" style={{ color: "#c2a14e" }}>❦</div>
+          <h2 style={serif} className="text-4xl font-semibold mb-6">The Garden Devils</h2>
+          <p className="text-lg mb-12 leading-relaxed" style={{ color: "#9aa861" }}>
+            Every garden has its adversaries. Slugs that materialise after rain like small, gelatinous opportunists.
+            Weeds with more ambition than one&apos;s houseplants. We help you identify them, track them, and prevail —
+            by natural means alone.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
             {[
-              { e: "🐌", n: "Slugs", d: "Active after rain. Ravenous. Slow, but committed." },
-              { e: "🌿", n: "Weeds", d: "They were here first. They will be here last." },
-              { e: "🐛", n: "Pests", d: "Tiny. Many. Hungry for your hostas." },
-              { e: "🍄", n: "Disease", d: "Damp weather's favourite houseguest." },
+              { n: "Slugs", d: "Active after rain. Ravenous. Slow, yet deeply committed." },
+              { n: "Weeds", d: "They were here first. They intend to be here last." },
+              { n: "Pests", d: "Small. Numerous. Famished for your hostas." },
+              { n: "Disease", d: "Damp weather's most persistent houseguest." },
             ].map((d) => (
-              <div key={d.n} className="bg-red-900/50 rounded-xl p-4 border border-red-800">
-                <div className="text-3xl mb-1">{d.e}</div>
-                <div className="font-bold text-white mb-1">{d.n}</div>
-                <p className="text-red-300 text-xs leading-relaxed">{d.d}</p>
+              <div key={d.n} className="rounded-xl p-5 border" style={{ backgroundColor: "#38431e", borderColor: "#4d5a2a" }}>
+                <div style={{ ...serif, color: "#d2ad5c" }} className="text-xl font-semibold mb-2">{d.n}</div>
+                <p className="text-xs leading-relaxed" style={{ color: "#9aa861" }}>{d.d}</p>
               </div>
             ))}
           </div>
-          <p className="text-red-400 text-sm mt-8 italic">
-            And when it all gets too much? There&apos;s an &quot;I surrender&quot; button that finds professional gardeners near you. No shame. Only survival.
+          <p className="text-sm mt-10 italic" style={{ ...serif, color: "#c2a14e" }}>
+            And should it all become too much — there is an &quot;I surrender&quot; button that summons professional gardeners nearby. No shame. Only survival.
           </p>
         </div>
       </section>
 
       {/* Who is it for */}
-      <section className="bg-lime-50 py-20 px-6">
+      <section className="py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-emerald-900 mb-2">Who is Garden Me for?</h2>
-          <p className="text-gray-500 mb-12">Spoiler: probably you.</p>
+          <p style={{ color: "#c2a14e" }} className="text-sm tracking-[0.3em] uppercase mb-3">For whom</p>
+          <h2 style={serif} className="text-4xl font-semibold mb-3">Who is Garden Me for?</h2>
+          <p className="mb-14" style={{ color: "#4d5a2a" }}>You, in all likelihood.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {personas.map((p) => (
-              <div key={p.who} className="bg-white rounded-2xl p-6 shadow-sm border border-lime-100">
-                <div className="text-3xl mb-2">{p.emoji}</div>
-                <div className="font-bold text-emerald-900 mb-1">{p.who}</div>
-                <p className="text-gray-600 text-sm leading-relaxed">{p.desc}</p>
+              <div key={p.who} className="rounded-2xl p-8 border" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
+                <div style={serif} className="text-2xl font-semibold mb-3" >{p.who}</div>
+                <p className="text-sm leading-relaxed" style={{ color: "#4d5a2a" }}>{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Plant testimonials */}
-      <section className="py-20 px-6 max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-emerald-900 mb-2">What the garden is saying</h2>
-        <p className="text-center text-gray-500 mb-12">Reviews from actual plants. And one slug.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plantQuotes.map((q) => (
-            <div key={q.who} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-              <div className="text-yellow-400 mb-2">★★★★★</div>
-              <p className="text-gray-700 text-sm leading-relaxed mb-3 italic">&quot;{q.text}&quot;</p>
-              <p className="text-emerald-700 text-xs font-semibold">— {q.who}</p>
-            </div>
-          ))}
+      {/* Testimonials */}
+      <section className="py-24 px-6" style={{ backgroundColor: "#9aa861" }}>
+        <div className="max-w-5xl mx-auto">
+          <p style={{ color: "#2c3517" }} className="text-center text-sm tracking-[0.3em] uppercase mb-3">Notices from the garden</p>
+          <h2 style={{ ...serif, color: "#2c3517" }} className="text-4xl font-semibold text-center mb-3">What the garden is saying</h2>
+          <p className="text-center mb-14" style={{ color: "#2c3517" }}>Reviews from actual plants. And one slug.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quotes.map((q) => (
+              <div key={q.who} className="rounded-2xl p-7" style={{ backgroundColor: "#f6f1e6" }}>
+                <div className="mb-3 tracking-widest" style={{ color: "#c2a14e" }}>★★★★★</div>
+                <p style={{ ...serif, color: "#2c3517" }} className="text-lg italic leading-relaxed mb-4">&quot;{q.text}&quot;</p>
+                <p className="text-xs tracking-wide uppercase" style={{ color: "#4d5a2a" }}>— {q.who}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Weather push highlight */}
-      <section className="bg-sky-950 text-white py-20 px-6 text-center">
+      {/* Weather highlight */}
+      <section className="py-24 px-6 text-center" style={{ backgroundColor: "#38431e", color: "#f6f1e6" }}>
         <div className="max-w-2xl mx-auto">
-          <div className="text-5xl mb-4">❄️</div>
-          <h2 className="text-3xl font-bold mb-4">Your garden calls. You answer.</h2>
-          <p className="text-sky-300 text-lg mb-4">
-            Garden Me monitors the weather and sends you a push notification when something needs attention —
-            frost warnings, slug weather, drought alerts, spring wake-up calls.
+          <div className="text-4xl mb-4" style={{ color: "#c2a14e" }}>☂</div>
+          <h2 style={serif} className="text-4xl font-semibold mb-6">The garden calls. You answer.</h2>
+          <p className="text-lg mb-4 leading-relaxed" style={{ color: "#9aa861" }}>
+            Garden Me observes the weather and sends word when attention is required —
+            frost warnings, slug weather, drought, the first stirrings of spring.
           </p>
-          <p className="text-sky-500 text-base">
-            Even if you haven&apos;t opened the app since last Tuesday. Especially then.
+          <p className="text-base italic" style={{ ...serif, color: "#d2ad5c" }}>
+            Even if you have not opened the app since last Tuesday. Especially then.
           </p>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="bg-emerald-950 text-white py-20 px-6 text-center">
+      <section className="py-24 px-6 text-center" style={{ backgroundColor: "#2c3517", color: "#f6f1e6" }}>
         <div className="max-w-xl mx-auto">
-          <Image src="/flower.png" alt="Garden Me" width={90} height={90} className="mx-auto mb-4" />
-          <h2 className="text-3xl font-bold mb-4">Ready to stop killing plants?</h2>
-          <p className="text-emerald-400 mb-8">Download Garden Me. Your garden will notice. Your ferns will weep with joy.</p>
+          <div className="inline-block rounded-2xl p-3 mb-6" style={{ backgroundColor: "#f6f1e6" }}>
+            <Image src="/icon.png" alt="Garden Me" width={80} height={80} className="rounded-xl" />
+          </div>
+          <h2 style={serif} className="text-4xl font-semibold mb-4">Shall we keep things alive?</h2>
+          <p className="mb-10" style={{ color: "#9aa861" }}>Download Garden Me. The garden will notice. The ferns may weep with relief.</p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <a href="#" className="bg-white text-emerald-900 font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-50 transition-colors">
-              🍎 App Store
+            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
+              App Store
             </a>
-            <a href="#" className="bg-emerald-700 text-white font-bold px-8 py-4 rounded-2xl text-lg hover:bg-emerald-600 transition-colors">
-              🤖 Google Play
+            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide border" style={{ borderColor: "#9aa861", color: "#f6f1e6" }}>
+              Google Play
             </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-emerald-950 border-t border-emerald-900 py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-emerald-600">
-          <span>🌿 © 2026 Garden Me. No plants were harmed in the making of this app. A few slugs were politely relocated.</span>
-          <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</a>
-            <a href="mailto:magnus@bjelkerud.no" className="hover:text-emerald-400 transition-colors">Contact</a>
+      <footer className="py-10 px-6" style={{ backgroundColor: "#2c3517", borderTop: "1px solid #4d5a2a" }}>
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm" style={{ color: "#9aa861" }}>
+          <span style={serif} className="italic">© 2026 Garden Me. No plants were harmed in the making of this app. A few slugs were politely relocated.</span>
+          <div className="flex gap-6 tracking-wide">
+            <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
+            <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
+            <a href="mailto:magnus@bjelkerud.no" className="hover:opacity-60 transition-opacity">Contact</a>
           </div>
         </div>
       </footer>
