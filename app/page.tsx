@@ -40,6 +40,31 @@ export default function Home() {
       desc: "Shopping and equipment lists, composed automatically from what your garden actually contains. Each item tied to a specific plant or pest. No generic 'buy fertiliser'. The real kind.",
     },
     {
+      icon: "✿",
+      title: "Ask Garden Me",
+      desc: "A conversation with your personal AI gardener — shy, but endlessly knowledgeable. Ask anything: why the leaves are yellow, when to divide the irises, whether that's a friend or a foe. No question too small.",
+    },
+    {
+      icon: "☀",
+      title: "Light Check",
+      desc: "Hold up your phone to a corner and we judge the light it receives — then suggest what would actually thrive there. The feature other apps lock behind a paywall. Here, it simply comes along.",
+    },
+    {
+      icon: "❡",
+      title: "The Garden Journal",
+      desc: "A diary for every plant. Photograph the first bud, the first bloom, the triumphant first tomato. Watch the seasons accumulate. Sentimental? Perhaps. But a garden is a slow story worth keeping.",
+    },
+    {
+      icon: "✚",
+      title: "Safe & Sound",
+      desc: "Every plant flagged for toxicity to cats, dogs, and curious children. Know at a glance whether the new arrival is a gentle houseguest or quietly plotting against the family pet.",
+    },
+    {
+      icon: "🍽",
+      title: "Surprisingly Edible",
+      desc: "Far more grows on your plate than you'd think. We'll tell you which leaves, petals, and berries are edible — which parts, how to prepare them, and a dish or two to try. (And, firmly, which to leave well alone.)",
+    },
+    {
       icon: "☂",
       title: "Weather Watch",
       desc: "Push alerts when frost, drought, or heavy rain threatens your particular garden. Even when you have not opened the app in a fortnight and forgotten the garden exists.",
