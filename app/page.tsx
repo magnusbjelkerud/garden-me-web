@@ -191,7 +191,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="text-sm mt-10 italic" style={{ ...serif, color: "#c2a14e" }}>
+          <div className="mt-10 rounded-xl border px-6 py-5" style={{ borderColor: "#c2a14e", backgroundColor: "#38431e" }}>
+            <p className="text-base" style={{ ...serif, color: "#d2ad5c" }}>
+              We never recommend harmful chemicals — neither for your garden nor the little rascals.
+              Every method we suggest is natural, organic, and kind to the soil. Hand-picking, copper tape,
+              beer traps, companion planting. A garden at war with itself is no garden at all.
+            </p>
+          </div>
+          <p className="text-sm mt-8 italic" style={{ ...serif, color: "#c2a14e" }}>
             And should it all become too much — there is an &quot;I surrender&quot; button that summons professional gardeners nearby. No shame. Only survival.
           </p>
         </div>
