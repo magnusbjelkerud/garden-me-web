@@ -7,7 +7,7 @@ export default function Home() {
     {
       icon: "🔍",
       title: "Plant Detective",
-      desc: "Photograph any plant and receive an instant identification. Roses, rare perennials, or that mysterious thing by the fence your neighbour swears is ornamental.",
+      desc: "Photograph any plant and receive an identification down to the cultivar where the evidence allows — not merely 'apple tree', but which apple tree. Leaf, bark, fruit and habit all considered.",
     },
     {
       icon: "📅",
@@ -17,7 +17,22 @@ export default function Home() {
     {
       icon: "❦",
       title: "The Garden Devils",
-      desc: "Slugs, weeds, invasive species. Identify your adversaries, track their advance, and receive removal advice — natural methods only. The slugs do not deserve a war crime.",
+      desc: "Slugs, weeds, invasive species, disease. Identify your adversaries, track their advance, and receive removal advice — natural methods only. The slugs do not deserve a war crime.",
+    },
+    {
+      icon: "🔬",
+      title: "Damage Forensics",
+      desc: "The culprit has fled, but the evidence remains. Photograph a half-eaten leaf and we deduce the offender — slug, caterpillar, beetle or blight — from the holes, the trails, the telltale spots.",
+    },
+    {
+      icon: "🌱",
+      title: "Knows Its Age",
+      desc: "Tag each plant as freshly planted, settling in, or well established. A seedling and a veteran want entirely different things — and only one of them is permitted to be dramatic about it.",
+    },
+    {
+      icon: "✓",
+      title: "Lists That Write Themselves",
+      desc: "Shopping and equipment lists, composed automatically from what your garden actually contains. Each item tied to a specific plant or pest. No generic 'buy fertiliser'. The real kind.",
     },
     {
       icon: "☂",
@@ -154,10 +169,14 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-4xl mb-4" style={{ color: "#c2a14e" }}>❦</div>
           <h2 style={serif} className="text-4xl font-semibold mb-6">The Garden Devils</h2>
-          <p className="text-lg mb-12 leading-relaxed" style={{ color: "#9aa861" }}>
+          <p className="text-lg mb-6 leading-relaxed" style={{ color: "#9aa861" }}>
             Every garden has its adversaries. Slugs that materialise after rain like small, gelatinous opportunists.
             Weeds with more ambition than one&apos;s houseplants. We help you identify them, track them, and prevail —
             by natural means alone.
+          </p>
+          <p className="text-base mb-12 leading-relaxed italic" style={{ ...serif, color: "#d2ad5c" }}>
+            And when the offender has already slipped away? Photograph the damage instead. From the holes, the slime trails,
+            the spotted leaves, we name the most likely suspect — slug, caterpillar, beetle or blight.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
             {[
