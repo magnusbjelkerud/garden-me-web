@@ -259,6 +259,20 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Green fingers band */}
+      <section className="py-20 px-6 text-center" style={{ backgroundColor: "#f6f1e6" }}>
+        <div className="max-w-3xl mx-auto">
+          <p style={{ color: "#c2a14e" }} className="text-sm tracking-[0.3em] uppercase mb-5">A universal affliction</p>
+          <p style={{ ...serif, color: "#2c3517" }} className="text-2xl md:text-3xl italic leading-relaxed mb-6">
+            &quot;Green fingers.&quot; &quot;Gröna fingrar.&quot; &quot;Grüner Daumen.&quot; &quot;Groene vingers.&quot;
+          </p>
+          <p className="text-lg leading-relaxed" style={{ color: "#4d5a2a" }}>
+            Every language has a phrase for the gift of growing things — and a polite silence regarding the soil
+            beneath the nails. Whether yours are green by nature or merely by enthusiasm, Garden Me makes them a little greener.
+          </p>
+        </div>
+      </section>
+
       {/* Weather highlight */}
       <section className="py-24 px-6 text-center" style={{ backgroundColor: "#38431e", color: "#f6f1e6" }}>
         <div className="max-w-2xl mx-auto">
