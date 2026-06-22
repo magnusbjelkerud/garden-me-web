@@ -60,11 +60,6 @@ export default function Home() {
       desc: "Every plant flagged for toxicity to cats, dogs, and curious children. Know at a glance whether the new arrival is a gentle houseguest or quietly plotting against the family pet.",
     },
     {
-      icon: "🍽",
-      title: "Surprisingly Edible",
-      desc: "Far more grows on your plate than you'd think. We'll tell you which leaves, petals, and berries are edible — which parts, how to prepare them, and a dish or two to try. (And, firmly, which to leave well alone.)",
-    },
-    {
       icon: "☂",
       title: "Weather Watch",
       desc: "Push alerts when frost, drought, or heavy rain threatens your particular garden. Even when you have not opened the app in a fortnight and forgotten the garden exists.",
