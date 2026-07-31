@@ -45,6 +45,11 @@ export default function Home() {
       desc: "We ask where the plant stands, not merely what it would prefer. When the two disagree, we say so in the first breath — what it wants, what it is getting, and precisely how that ends.",
     },
     {
+      icon: "✉",
+      title: "A Link for the Neighbour",
+      desc: "Going away? Share the garden as a web page. Whoever is watering will see what needs doing, which plant is which, and how much is too much — no app, no account, no explanation required from you at the airport.",
+    },
+    {
       icon: "🙅",
       title: "\"No, That Is Wrong\"",
       desc: "You know your own garden. Reject an identification and Garden Me starts the reasoning over — never offering the same answer twice, and telling you which visible detail separates the new guess from the one you ruled out. Being corrected costs you nothing. It rather ought not to.",
@@ -125,10 +130,12 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
-        <div className="flex items-center gap-3">
+        {/* The wordmark is the way home from anywhere on the site — people reach
+            for it before they reach for the back button. */}
+        <a href="/" aria-label="Garden Me — home" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
           <Image src="/logo.png" alt="Garden Me" width={36} height={36} />
-          <span style={serif} className="text-2xl font-semibold tracking-wide" >Garden Me</span>
-        </div>
+          <span style={serif} className="text-2xl font-semibold tracking-wide">Garden Me</span>
+        </a>
         <div className="flex gap-8 text-sm tracking-wide" style={{ color: "#4d5a2a" }}>
           <a href="#features" className="hover:opacity-60 transition-opacity">Features</a>
           <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
@@ -251,6 +258,27 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Helper link */}
+      <section className="py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="text-4xl mb-4" style={{ color: "#c2a14e" }}>✉</div>
+          <p style={{ color: "#c2a14e" }} className="text-sm tracking-[0.3em] uppercase mb-3">While you are away</p>
+          <h2 style={serif} className="text-4xl font-semibold mb-6">
+            Your neighbour is willing.<br />Your neighbour is not psychic.
+          </h2>
+          <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
+            Send them a link. They will see exactly what wants doing this week, which plant is
+            which, and how much water is in fact too much — in an ordinary browser, with no app
+            to install and no account to invent. They need never learn the word cultivar.
+          </p>
+          <p className="text-base leading-relaxed" style={{ color: "#9aa861" }}>
+            The link keeps working if you share again, and quietly expires when the holiday is
+            long over. Whether the tomatoes survive your uncle remains, as ever, between you
+            and your uncle.
+          </p>
         </div>
       </section>
 
