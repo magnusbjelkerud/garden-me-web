@@ -428,9 +428,15 @@ export default function Home() {
       <section className="py-20 px-6 text-center" style={{ backgroundColor: "#f6f1e6" }}>
         <div className="max-w-3xl mx-auto">
           <p style={{ color: "#c2a14e" }} className="text-sm tracking-[0.3em] uppercase mb-5">A universal affliction</p>
-          <p style={{ ...serif, color: "#2c3517" }} className="text-2xl md:text-3xl italic leading-relaxed mb-6">
-            &quot;Green fingers.&quot; &quot;Gröna fingrar.&quot; &quot;Grüner Daumen.&quot; &quot;Groene vingers.&quot;
-          </p>
+          {/* One phrase per line. Left as a single paragraph they wrapped wherever
+              the viewport happened to end, which broke them mid-phrase. */}
+          <div className="mb-6 space-y-1">
+            {["Green fingers.", "Gröna fingrar.", "Grüner Daumen.", "Groene vingers."].map((phrase) => (
+              <p key={phrase} style={{ ...serif, color: "#2c3517" }} className="text-2xl md:text-3xl italic leading-snug">
+                &quot;{phrase}&quot;
+              </p>
+            ))}
+          </div>
           <p className="text-lg leading-relaxed" style={{ color: "#4d5a2a" }}>
             Every language has a phrase for the gift of growing things — and a polite silence regarding the soil
             beneath the nails. Whether yours are green by nature or merely by enthusiasm, Garden Me makes them a little greener.
