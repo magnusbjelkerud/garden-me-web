@@ -22,6 +22,46 @@ const MSGS: Record<Lang, Record<AlertType, string>> = {
   nl: { frost: "Dek kwetsbare planten af vannacht", rain: "Slakken- en schimmelrisico stijgt — controleer de tuin", drought: "De tuin heeft dorst — tijd voor grondig water geven", heat: "Water geven ochtend en avond, bescherm kwetsbare planten tegen middagzon", winter: "Afdekken, potten naar binnen, rozen snoeien", spring: "Controleer planten na de winter en start de verzorging" },
 };
 
+// These land on a lock screen while the app is closed — the widest audience any
+// text in the product gets. Rotated by alert type so a user who gets frost twice
+// in a week does not read the same joke twice.
+const ASIDES: Record<Lang, string[]> = {
+  no: [
+    "Plantene sier ingenting. De regner med at du skjønner det.",
+    "Jeg maser ikke. Jeg nevner det.",
+    "Du hørte det ikke fra meg.",
+  ],
+  sv: [
+    "Växterna säger inget. De utgår från att du fattar.",
+    "Jag tjatar inte. Jag nämner det.",
+    "Du hörde det inte från mig.",
+  ],
+  da: [
+    "Planterne siger ingenting. De regner med, at du forstår det.",
+    "Jeg brokker mig ikke. Jeg nævner det.",
+    "Du hørte det ikke fra mig.",
+  ],
+  en: [
+    "The plants are saying nothing. They assume you have noticed.",
+    "I am not nagging. I am mentioning.",
+    "You did not hear it from me.",
+  ],
+  de: [
+    "Die Pflanzen sagen nichts. Sie gehen davon aus, dass Sie es merken.",
+    "Ich dränge nicht. Ich erwähne es.",
+    "Sie haben es nicht von mir.",
+  ],
+  nl: [
+    "De planten zeggen niets. Ze gaan ervan uit dat u het doorheeft.",
+    "Ik zeur niet. Ik noem het even.",
+    "U heeft het niet van mij.",
+  ],
+};
+
+const ASIDE_INDEX: Record<AlertType, number> = {
+  frost: 0, rain: 1, drought: 2, heat: 0, winter: 1, spring: 2,
+};
+
 interface UserData {
   token: string;
   lat: number;
@@ -95,11 +135,12 @@ export async function GET(req: NextRequest) {
         const rainToday = forecast10[0] ?? 0;
         const recentRain = past7.reduce((a, b) => a + (b ?? 0), 0);
 
-        let alert: { title: string; body: string } | null = null;
+        let alert: { title: string; body: string; type: AlertType } | null = null;
 
         if (temp < 2) {
           const names = (user.plants ?? []).slice(0, 3).map((p) => p.name).join(", ");
           alert = {
+            type: "frost",
             title: TITLES[lang].frost,
             body: `${MSGS[lang].frost}${names ? `: ${names}` : ""}`,
           };
@@ -109,24 +150,35 @@ export async function GET(req: NextRequest) {
             .map((d) => d.name)
             .join(", ");
           alert = {
+            type: "rain",
             title: TITLES[lang].rain,
             body: `${MSGS[lang].rain}${slugNames ? ` (${slugNames})` : ""}`,
           };
         } else if (recentRain < 5 && temp > 18) {
           const names = (user.plants ?? []).slice(0, 3).map((p) => p.name).join(", ");
           alert = {
+            type: "drought",
             title: TITLES[lang].drought,
             body: `${MSGS[lang].drought}${names ? `: ${names}` : ""}`,
           };
         } else if (temp > 28) {
-          alert = { title: TITLES[lang].heat, body: MSGS[lang].heat };
-        } else if (month === 9 || month === 10) {
-          alert = { title: TITLES[lang].winter, body: MSGS[lang].winter };
-        } else if (month === 2 || month === 3) {
-          alert = { title: TITLES[lang].spring, body: MSGS[lang].spring };
+          alert = { type: "heat", title: TITLES[lang].heat, body: MSGS[lang].heat };
+        } else {
+          // The temperature-driven alerts above are self-correcting anywhere on
+          // earth. These two are not: they fire on the calendar, so south of the
+          // equator they must be shifted half a year or they arrive backwards —
+          // telling someone to wrap up for winter in the middle of their summer.
+          const localMonth = user.lat < 0 ? (month + 6) % 12 : month;
+          if (localMonth === 9 || localMonth === 10) {
+            alert = { type: "winter", title: TITLES[lang].winter, body: MSGS[lang].winter };
+          } else if (localMonth === 2 || localMonth === 3) {
+            alert = { type: "spring", title: TITLES[lang].spring, body: MSGS[lang].spring };
+          }
         }
 
         if (!alert) continue;
+
+        alert.body = `${alert.body}. ${ASIDES[lang][ASIDE_INDEX[alert.type]]}`;
 
         const pushRes = await fetch("https://exp.host/--/api/v2/push/send", {
           method: "POST",

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
     "@upstash/redis": "^1.38.0",
     "expo-constants": "~18.0.13",
     "next": "16.2.9",
