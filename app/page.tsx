@@ -122,7 +122,7 @@ export default function Home() {
     { who: "A brown slug", stars: 1, text: "Dreadful. They located me at once and relocated me humanely. Where is the sport in that?" },
     { who: "A tomato plant", text: "A frost warning arrived at ten in the evening. I was covered. I survived. I owe this app my marinara." },
     { who: "A rose bush", text: "At last, someone who knows precisely when to prune. The audacity I had endured until now." },
-    { who: "An anonymous weed", text: "Would not recommend. Registered as a 'Garden Devil'. The disrespect. The accuracy." },
+    { who: "An anonymous weed", stars: 1, text: "Would not recommend. Registered as a 'Garden Devil'. The disrespect. The accuracy." },
   ];
 
   return (
