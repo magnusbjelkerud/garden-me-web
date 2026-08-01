@@ -4,7 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { FREE_WELCOME, KINDS, PREMIUM_MONTHLY, isKind, isPremium, month, today } from "../_lib/quota";
 
 // Vision calls take 20-40s. Hobby plan caps functions at 60s.
-export const maxDuration = 60;
+// A plant reply is long — identity, care, a year of tasks, a starter kit and
+// the threat list — and 60s was not enough for it. Worse, a function killed
+// at the ceiling never reaches the refund, so the timeout billed the user
+// for an answer they never saw.
+export const maxDuration = 300;
 
 // Comfortably above human speed — a new user loading a whole garden in one
 // sitting must never be told to slow down — but still far below scripted abuse.
