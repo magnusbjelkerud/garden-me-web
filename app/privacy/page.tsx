@@ -22,15 +22,18 @@ export default function PrivacyPage() {
     },
     {
       h: "AI plant identification",
-      body: ["Images are sent directly from your device to the Anthropic API for plant and pest identification. Garden Me does not store these images."],
+      body: [
+        "When you ask for an identification, a piece of advice or an answer, the photograph or question passes through Garden Me's server to Anthropic, who provide the AI. We do not store the content, and it is not used to train models.",
+        "Our server counts how many actions your device has used, so that your allowance works. For that it keeps a random device ID, and your IP address briefly to prevent abuse. Neither is tied to a name, an email or an account — you never sign up.",
+      ],
     },
     {
       h: "Location",
       body: ["Location data is used for finding nearby garden centres and for weather alerts. We do not build location history or track movement."],
     },
     {
-      h: "Your API key",
-      body: ["Your Anthropic API key is stored only on your device and is never transmitted to Garden Me servers."],
+      h: "Purchases",
+      body: ["Purchases are handled by the App Store and RevenueCat. We never see your card details."],
     },
   ];
 
@@ -42,7 +45,7 @@ export default function PrivacyPage() {
           <span style={{ ...serif, color: "#2c3517" }} className="text-xl font-semibold tracking-wide">Garden Me</span>
         </a>
         <h1 style={serif} className="text-4xl font-semibold mt-6 mb-2">Privacy Policy</h1>
-        <p className="text-sm mb-12" style={{ color: "#4d5a2a" }}>Last updated: June 2026</p>
+        <p className="text-sm mb-12" style={{ color: "#4d5a2a" }}>Last updated: August 2026</p>
 
         {sections.map((s) => (
           <section key={s.h} className="mb-10">
