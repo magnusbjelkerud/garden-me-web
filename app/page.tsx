@@ -383,39 +383,53 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            <div className="rounded-2xl p-8 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
-              <h3 style={serif} className="text-2xl font-semibold mb-3 leading-snug">
-                A few plants,<br />and some curiosity.
-              </h3>
-              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>
-                Top up when you run out, and not before. Twenty actions is roughly a small garden
-                loaded, or a whole season of the occasional question. They never expire, there is
-                nothing to renew and nothing to remember to cancel — some gardens want attention
-                twice a year and then nothing until spring, and we shall not bill you monthly for
-                that.
-              </p>
-              <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
-                from 49 kr <span className="text-lg font-normal" style={{ color: "#9aa861" }}>/ 4,49 €</span>
-              </p>
-              <p className="text-sm mt-1" style={{ color: "#9aa861" }}>20, 60 or 150 actions at a time</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {[
+              {
+                name: "Bronze",
+                who: "A few pots, and some curiosity.",
+                body: "Twenty-five actions a month is a windowsill, a balcony, or a garden you have already got the measure of. Enough to identify what the neighbour planted over the fence and ask why it looks like that.",
+                price: "29 kr", per: "a month", year: "or 290 kr a year",
+              },
+              {
+                name: "Silver",
+                who: "A garden that asks something of you every week.",
+                body: "Sixty actions a month. Room to load a border in one sitting, work out what is eating the roses, and still have plenty left when something unexpected comes up in August.",
+                price: "49 kr", per: "a month", year: "or 490 kr a year",
+              },
+              {
+                name: "Gold",
+                who: "You would rather stop counting.",
+                body: "A hundred and fifty actions a month, which is more than a large garden manages to use. That is the actual point: you stop thinking about it and simply ask.",
+                price: "79 kr", per: "a month", year: "or 790 kr a year", top: true,
+              },
+            ].map((tier) => (
+              <div
+                key={tier.name}
+                className={`rounded-2xl p-7 flex flex-col ${tier.top ? "border-2" : "border"}`}
+                style={{ backgroundColor: "#ffffff", borderColor: tier.top ? "#c2a14e" : "#e5ddc8" }}
+              >
+                <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: "#9aa861" }}>{tier.name}</p>
+                <h3 style={serif} className="text-xl font-semibold mb-3 leading-snug">{tier.who}</h3>
+                <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>{tier.body}</p>
+                <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
+                  {tier.price} <span className="text-lg font-normal" style={{ color: "#9aa861" }}>{tier.per}</span>
+                </p>
+                <p className="text-sm mt-1" style={{ color: "#9aa861" }}>{tier.year}</p>
+              </div>
+            ))}
+          </div>
 
-            <div className="rounded-2xl p-8 border-2 flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "#c2a14e" }}>
-              <h3 style={serif} className="text-2xl font-semibold mb-3 leading-snug">
-                A garden that asks something<br />of you every week.
-              </h3>
-              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>
-                150 actions a month, which is more than a large garden manages to use — you stop
-                counting, which is the actual point. Works out around a sixth the price of topping
-                up. Seven days free to find out whether you are that sort of gardener; a good many
-                people are and had not noticed.
-              </p>
-              <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
-                399 kr <span className="text-lg font-normal" style={{ color: "#9aa861" }}>/ 34,99 € a year</span>
-              </p>
-              <p className="text-sm mt-1" style={{ color: "#9aa861" }}>or monthly, if you would rather</p>
-            </div>
+          <div className="rounded-2xl p-7 border mt-6" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
+            <h3 style={serif} className="text-xl font-semibold mb-2 leading-snug">
+              Or nothing at all, until you need something.
+            </h3>
+            <p className="text-sm leading-relaxed" style={{ color: "#4d5a2a" }}>
+              The app is free, and stays free. When the ten actions you begin with run out, you can
+              buy more a handful at a time — <strong>from 49 kr for twenty</strong>. They never expire,
+              there is nothing to renew and nothing to remember to cancel. Some gardens want attention
+              twice a year and then nothing until spring, and we shall not bill you monthly for that.
+            </p>
           </div>
 
           <p className="text-center text-xs mt-10" style={{ color: "#9aa861" }}>

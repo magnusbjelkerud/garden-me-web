@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
-import { FREE_WELCOME, PREMIUM_MONTHLY, isPremium, month } from "../_lib/quota";
+import { FREE_WELCOME, TIERS, month, tierOf } from "../_lib/quota";
 
 // Read-only balance lookup so the app can show "34 av 150" without having to
 // make an AI call first.
@@ -16,7 +16,8 @@ export async function GET(req: NextRequest) {
   }
 
   const redis = Redis.fromEnv();
-  const premium = await isPremium(redis, deviceId);
+  const tier = await tierOf(redis, deviceId);
+  const premium = tier !== "free";
 
   const [monthlyUsed, freeUsed, credits] = await Promise.all([
     redis.get<number>(`spent:mo:${deviceId}:${month()}`),
@@ -27,7 +28,8 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     premium,
     monthlyUsed: monthlyUsed ?? 0,
-    monthlyLimit: premium ? PREMIUM_MONTHLY : 0,
+    tier,
+    monthlyLimit: TIERS[tier].monthly,
     freeUsed: freeUsed ?? 0,
     freeLimit: FREE_WELCOME,
     credits: Math.max(0, credits ?? 0),

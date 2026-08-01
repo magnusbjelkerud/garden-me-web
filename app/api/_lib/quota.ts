@@ -7,9 +7,7 @@ export interface KindConfig {
   maxTokens: number;
   /** Credits this action costs the user. 0 = automatic background work, capped instead. */
   cost: 0 | 1;
-  /** Only meaningful when cost is 0. */
-  freeCap: number;
-  premiumCap: number;
+  /** Only meaningful when cost is 0 — the allowance itself comes from the tier. */
   capWindow: "day" | "month";
 }
 
@@ -22,17 +20,17 @@ export const KINDS: Record<Kind, KindConfig> = {
   // carries toxicity, effort, effortSummary and a starter kit with quantities,
   // in languages wordier than English. Too tight, and a truncated reply is
   // worse than a slow one: it costs a credit and delivers nothing.
-  plant:     { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
+  plant:     { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 1, capWindow: "month" },
   // "That is definitely not it" — a second look after the user rejects an
   // identification. Free, because charging someone to correct our own mistake
   // is a poor trade: it costs us ~0.3 kr and buys back the moment the app
   // looked wrong. Capped per day so it cannot be farmed as free identification.
-  plant_retry: { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, freeCap: 5, premiumCap: 20, capWindow: "day" },
-  devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
-  ask:       { model: "claude-sonnet-4-6", maxTokens: 700,  cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
-  light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
-  equipment: { model: "claude-sonnet-4-6", maxTokens: 2500, cost: 0, freeCap: 3, premiumCap: 10, capWindow: "month" },
-  weather:   { model: "claude-sonnet-4-6", maxTokens: 800,  cost: 0, freeCap: 1, premiumCap: 2,  capWindow: "day" },
+  plant_retry: { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, capWindow: "day" },
+  devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
+  ask:       { model: "claude-sonnet-4-6", maxTokens: 700,  cost: 1, capWindow: "month" },
+  light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
+  equipment: { model: "claude-sonnet-4-6", maxTokens: 2500, cost: 0, capWindow: "month" },
+  weather:   { model: "claude-sonnet-4-6", maxTokens: 800,  cost: 0, capWindow: "day" },
   // Who is likely to eat this plant. Split out of the identification, which
   // it had grown long enough to push past a minute. Free and capped rather
   // than charged: the app asks for this on its own, and a balance the owner
@@ -40,15 +38,49 @@ export const KINDS: Record<Kind, KindConfig> = {
   // Everything about the year rather than the plant in your hand: the task
   // wheel, who will eat it, and what it falls ill with. The wire name stayed
   // "threats" from when that was all it carried.
-  threats:   { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, freeCap: 30, premiumCap: 200, capWindow: "month" },
+  threats:   { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, capWindow: "month" },
 };
 
 /** One-time welcome allowance so a new user can load a real garden and see the
  *  year wheel, notifications and shopping list fill up before meeting the wall. */
 export const FREE_WELCOME = Number(process.env.FREE_WELCOME ?? 10);
 
-/** Included with Garden Me +. Advertised explicitly — never call it unlimited. */
-export const PREMIUM_MONTHLY = 150;
+export type Tier = "free" | "bronze" | "silver" | "gold";
+
+export interface TierConfig {
+  /** Charged actions per month. Advertised explicitly — never call it unlimited. */
+  monthly: number;
+  weatherPerDay: number;
+  equipmentPerMonth: number;
+  followupPerMonth: number;
+}
+
+/** The background allowances rise with the tier because they are a fixed floor
+ *  under every subscriber: a bronze subscriber paying 29 kr must not be handed
+ *  the same automatic spend as one paying 79. Since answers to these are shared
+ *  between everyone asking the same question, the floor is now small — but it
+ *  should still not be flat. */
+export const TIERS: Record<Tier, TierConfig> = {
+  free:   { monthly: 0,   weatherPerDay: 1, equipmentPerMonth: 3,  followupPerMonth: 30 },
+  bronze: { monthly: 25,  weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60 },
+  silver: { monthly: 60,  weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120 },
+  gold:   { monthly: 150, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250 },
+};
+
+/** Store product identifier to the tier it grants. Keys must match App Store
+ *  Connect and RevenueCat exactly; a typo grants nothing and says nothing. */
+export const SUBSCRIPTIONS: Record<string, Tier> = {
+  gardenme_bronze_monthly: "bronze", gardenme_bronze_yearly: "bronze",
+  gardenme_silver_monthly: "silver", gardenme_silver_yearly: "silver",
+  gardenme_gold_monthly:   "gold",   gardenme_gold_yearly:   "gold",
+};
+
+/** Which tier allowance governs each free background kind. */
+export const CAP_FIELD: Partial<Record<Kind, keyof TierConfig>> = {
+  weather: "weatherPerDay",
+  equipment: "equipmentPerMonth",
+  threats: "followupPerMonth",
+};
 
 /** Credits granted per consumable product. Keys must match the App Store /
  *  Play Store product identifiers configured in RevenueCat. */
@@ -70,12 +102,20 @@ export function month(): string {
   return new Date().toISOString().slice(0, 7);
 }
 
-export async function isPremium(redis: Redis, deviceId: string): Promise<boolean> {
+export function isTier(v: unknown): v is Tier {
+  return v === "free" || v === "bronze" || v === "silver" || v === "gold";
+}
+
+export async function tierOf(redis: Redis, deviceId: string): Promise<Tier> {
   const allowlist = (process.env.PREMIUM_DEVICE_IDS ?? "")
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
-  if (allowlist.includes(deviceId)) return true;
+  if (allowlist.includes(deviceId)) return "gold";
   // Set and cleared by the RevenueCat webhook.
-  return (await redis.get(`prem:${deviceId}`)) !== null;
+  const stored = await redis.get(`prem:${deviceId}`);
+  if (stored === null) return "free";
+  // Subscriptions sold before the tiers existed stored a bare 1. They were all
+  // the 150-action plan, so they stay on it rather than being quietly demoted.
+  return isTier(stored) ? stored : "gold";
 }

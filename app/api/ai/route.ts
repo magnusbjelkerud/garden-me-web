@@ -2,7 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createHash } from "crypto";
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
-import { FREE_WELCOME, KINDS, PREMIUM_MONTHLY, isKind, isPremium, month, today } from "../_lib/quota";
+import { CAP_FIELD, FREE_WELCOME, KINDS, TIERS, isKind, month, tierOf, today } from "../_lib/quota";
 
 // Vision calls take 20-40s. Hobby plan caps functions at 60s.
 // A plant reply is long — identity, care, a year of tasks, a starter kit and
@@ -127,7 +127,9 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const premium = await isPremium(redis, deviceId);
+  const tier = await tierOf(redis, deviceId);
+  const premium = tier !== "free";
+  const allowance = TIERS[tier];
 
   // How this request gets paid for, decided before Claude is called and undone
   // if the call fails. `spent` records what to refund.
@@ -139,7 +141,8 @@ export async function POST(req: NextRequest) {
   if (config.cost === 0) {
     // Automatic background work (weather, shopping list). The user never asked
     // for it, so it must never cost them a credit — capped instead.
-    const cap = premium ? config.premiumCap : config.freeCap;
+    const field = CAP_FIELD[kind];
+    const cap = field ? allowance[field] : 0;
     const window = config.capWindow === "day" ? day : mo;
     const capKey = `cap:${kind}:${deviceId}:${window}`;
     const used = await redis.incr(capKey);
@@ -150,14 +153,14 @@ export async function POST(req: NextRequest) {
   } else if (premium) {
     const used = await redis.incr(monthKey);
     if (used === 1) await redis.expire(monthKey, MONTH_TTL);
-    if (used > PREMIUM_MONTHLY) {
+    if (used > allowance.monthly) {
       await redis.decr(monthKey);
       // Monthly allowance is gone — fall back to purchased credits.
       const left = await redis.decr(balKey);
       if (left < 0) {
         await redis.incr(balKey);
         return fail(402, "NEEDS_CREDITS", "Monthly allowance used up", {
-          state: { premium, monthlyUsed: PREMIUM_MONTHLY, monthlyLimit: PREMIUM_MONTHLY, credits: 0 },
+          state: { premium, tier, monthlyUsed: allowance.monthly, monthlyLimit: allowance.monthly, credits: 0 },
         });
       }
       spent = "credits";
@@ -229,8 +232,9 @@ export async function POST(req: NextRequest) {
       },
       state: {
         premium,
+        tier,
         monthlyUsed: monthlyUsed ?? 0,
-        monthlyLimit: premium ? PREMIUM_MONTHLY : 0,
+        monthlyLimit: allowance.monthly,
         freeUsed: freeUsed ?? 0,
         freeLimit: FREE_WELCOME,
         credits: Math.max(0, credits ?? 0),

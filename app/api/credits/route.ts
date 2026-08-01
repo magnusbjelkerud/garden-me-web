@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
-import { CREDIT_PACKS } from "../_lib/quota";
+import { CREDIT_PACKS, SUBSCRIPTIONS } from "../_lib/quota";
 
 // Credits and premium access are granted ONLY here, from a RevenueCat webhook
 // fired by a store-verified purchase. The app can never grant itself anything —
@@ -65,8 +65,14 @@ export async function POST(req: NextRequest) {
       const ttl = expiresAt
         ? Math.max(60, Math.floor((expiresAt - Date.now()) / 1000) + GRACE_SECONDS)
         : 60 * 60 * 24 * 32;
-      await redis.set(`prem:${deviceId}`, 1, { ex: ttl });
-      return NextResponse.json({ ok: true, premium: true, ttl });
+      // Store which plan, not merely that there is one — the allowance differs
+      // by tier now, and an upgrade must take effect without waiting for a
+      // renewal. An unrecognised subscription product grants the smallest paid
+      // tier rather than nothing, so a mistake in App Store Connect cannot
+      // leave a paying subscriber with no allowance at all.
+      const tier = event.product_id ? SUBSCRIPTIONS[event.product_id] ?? "bronze" : "bronze";
+      await redis.set(`prem:${deviceId}`, tier, { ex: ttl });
+      return NextResponse.json({ ok: true, premium: true, tier, ttl });
     }
 
     case "EXPIRATION": {
