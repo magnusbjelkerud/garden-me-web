@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 
-export type Kind = "plant" | "plant_retry" | "devil" | "ask" | "light" | "equipment" | "weather";
+export type Kind = "plant" | "plant_retry" | "devil" | "ask" | "light" | "equipment" | "weather" | "threats";
 
 export interface KindConfig {
   model: string;
@@ -33,6 +33,11 @@ export const KINDS: Record<Kind, KindConfig> = {
   light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
   equipment: { model: "claude-sonnet-4-6", maxTokens: 2500, cost: 0, freeCap: 3, premiumCap: 10, capWindow: "month" },
   weather:   { model: "claude-sonnet-4-6", maxTokens: 800,  cost: 0, freeCap: 1, premiumCap: 2,  capWindow: "day" },
+  // Who is likely to eat this plant. Split out of the identification, which
+  // it had grown long enough to push past a minute. Free and capped rather
+  // than charged: the app asks for this on its own, and a balance the owner
+  // is watching should only move when they asked for something.
+  threats:   { model: "claude-sonnet-4-6", maxTokens: 900,  cost: 0, freeCap: 30, premiumCap: 200, capWindow: "month" },
 };
 
 /** One-time welcome allowance so a new user can load a real garden and see the
