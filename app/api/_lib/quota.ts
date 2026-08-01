@@ -18,12 +18,16 @@ export interface KindConfig {
  *  for, so charging credits for them would drain a balance the user is watching.
  *  They are free but capped — the cap is what protects the margin. */
 export const KINDS: Record<Kind, KindConfig> = {
-  plant:     { model: "claude-sonnet-4-6", maxTokens: 1500, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
+  // 1500 was set when the reply was name, care and a few tasks. It now also
+  // carries toxicity, effort, effortSummary and a starter kit with quantities,
+  // in languages wordier than English. Too tight, and a truncated reply is
+  // worse than a slow one: it costs a credit and delivers nothing.
+  plant:     { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
   // "That is definitely not it" — a second look after the user rejects an
   // identification. Free, because charging someone to correct our own mistake
   // is a poor trade: it costs us ~0.3 kr and buys back the moment the app
   // looked wrong. Capped per day so it cannot be farmed as free identification.
-  plant_retry: { model: "claude-sonnet-4-6", maxTokens: 1500, cost: 0, freeCap: 5, premiumCap: 20, capWindow: "day" },
+  plant_retry: { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, freeCap: 5, premiumCap: 20, capWindow: "day" },
   devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
   ask:       { model: "claude-sonnet-4-6", maxTokens: 700,  cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
   light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, freeCap: 0, premiumCap: 0, capWindow: "month" },
@@ -33,7 +37,7 @@ export const KINDS: Record<Kind, KindConfig> = {
 
 /** One-time welcome allowance so a new user can load a real garden and see the
  *  year wheel, notifications and shopping list fill up before meeting the wall. */
-export const FREE_WELCOME = 10;
+export const FREE_WELCOME = Number(process.env.FREE_WELCOME ?? 10);
 
 /** Included with Garden Me +. Advertised explicitly — never call it unlimited. */
 export const PREMIUM_MONTHLY = 150;

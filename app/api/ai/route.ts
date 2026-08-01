@@ -155,6 +155,15 @@ export async function POST(req: NextRequest) {
       messages: messages as Anthropic.MessageParam[],
     });
 
+    // Anthropic returns 200 for a reply it had to cut off at max_tokens. The
+    // JSON is then half-written, the app cannot parse it, and the user has paid
+    // a credit for nothing — which is exactly what happened to the blueberry.
+    // Charging for an answer we know is incomplete is not defensible.
+    if (message.stop_reason === "max_tokens") {
+      await refund();
+      return fail(502, "TRUNCATED", "The reply was cut short; nothing was charged");
+    }
+
     const [monthlyUsed, freeUsed, credits] = await Promise.all([
       redis.get<number>(monthKey),
       redis.get<number>(freeKey),
