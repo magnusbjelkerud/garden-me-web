@@ -140,6 +140,7 @@ export default function Home() {
           <a href="#features" className="hover:opacity-60 transition-opacity">Features</a>
           <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
           <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
+          <a href="/support" className="hover:opacity-60 transition-opacity">Support</a>
         </div>
       </nav>
 
@@ -361,11 +362,26 @@ export default function Home() {
           <h2 style={serif} className="text-4xl font-semibold text-center mb-4">
             How much garden have you got?
           </h2>
-          <p className="text-center text-lg mb-14 max-w-2xl mx-auto" style={{ color: "#4d5a2a" }}>
-            You begin with ten actions, free — enough to load a real garden and see what happens.
-            An action is one identification, one question, or one light check. Weather, reminders
-            and your lists never cost a thing, and correcting us is free by design.
-          </p>
+          {/* The confusing part was never the numbers — it was that "action" is a
+              word nobody has met before, and that people assume the free version
+              is the crippled one. Answer both before showing a price. */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
+              <strong>The app itself is free.</strong> Every reminder, the whole year&apos;s
+              calendar, the pest tracking, the shopping lists, the journal, the weather, sharing
+              the garden with a neighbour — all of it, for everyone, always.
+            </p>
+            <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
+              One thing costs: <strong>asking the app to think.</strong> Identifying a plant from
+              a photograph, asking Garden Me a question, checking the light in a corner. We call
+              those actions, and you begin with ten.
+            </p>
+            <p className="leading-relaxed" style={{ color: "#9aa861" }}>
+              Most of them go at the start. Loading a garden of twenty plants costs about twenty
+              actions, and then it goes quiet — a settled garden asks for five or ten in a month,
+              and rather fewer in January. Being told we got something wrong costs nothing at all.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             <div className="rounded-2xl p-8 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
@@ -373,10 +389,11 @@ export default function Home() {
                 A few plants,<br />and some curiosity.
               </h3>
               <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>
-                Buy actions when you happen to need them. They never expire, there is nothing to
-                renew, and nothing to remember to cancel. Some gardens want attention twice a year
-                and then nothing at all until spring — we shall not pretend otherwise, nor bill you
-                monthly for it.
+                Top up when you run out, and not before. Twenty actions is roughly a small garden
+                loaded, or a whole season of the occasional question. They never expire, there is
+                nothing to renew and nothing to remember to cancel — some gardens want attention
+                twice a year and then nothing until spring, and we shall not bill you monthly for
+                that.
               </p>
               <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
                 from 49 kr <span className="text-lg font-normal" style={{ color: "#9aa861" }}>/ 4,49 €</span>
@@ -389,9 +406,10 @@ export default function Home() {
                 A garden that asks something<br />of you every week.
               </h3>
               <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>
-                Garden Me + gives you 150 actions a month — far more than most gardens ask for —
-                and works out at roughly a sixth the price per action. Seven days free to see
-                whether you are that sort of gardener. Many people are, and did not know it.
+                150 actions a month, which is more than a large garden manages to use — you stop
+                counting, which is the actual point. Works out around a sixth the price of topping
+                up. Seven days free to find out whether you are that sort of gardener; a good many
+                people are and had not noticed.
               </p>
               <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
                 399 kr <span className="text-lg font-normal" style={{ color: "#9aa861" }}>/ 34,99 € a year</span>
@@ -485,6 +503,7 @@ export default function Home() {
           <div className="flex gap-6 tracking-wide">
             <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
             <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
+          <a href="/support" className="hover:opacity-60 transition-opacity">Support</a>
             <a href="mailto:magnus@bjelkerud.no" className="hover:opacity-60 transition-opacity">Contact</a>
           </div>
         </div>
