@@ -463,7 +463,7 @@ export default function Home() {
           {/* One phrase per line. Left as a single paragraph they wrapped wherever
               the viewport happened to end, which broke them mid-phrase. */}
           <div className="mb-6 space-y-1">
-            {["Green fingers.", "Gröna fingrar.", "Grüner Daumen.", "Groene vingers."].map((phrase) => (
+            {["Green fingers.", "Grønne fingre.", "Gröna fingrar.", "Grüner Daumen.", "Groene vingers."].map((phrase) => (
               <p key={phrase} style={{ ...serif, color: "#2c3517" }} className="text-2xl md:text-3xl italic leading-snug">
                 &quot;{phrase}&quot;
               </p>
