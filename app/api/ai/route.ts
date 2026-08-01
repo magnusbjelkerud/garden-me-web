@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { createHash } from "crypto";
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { FREE_WELCOME, KINDS, PREMIUM_MONTHLY, isKind, isPremium, month, today } from "../_lib/quota";
@@ -18,6 +19,33 @@ const MAX_BODY_CHARS = 6_000_000; // ~4.5 MB of base64 image plus prompt
 const MAX_MESSAGES = 40;
 const LIFETIME_TTL = 60 * 60 * 24 * 400;
 const MONTH_TTL = 60 * 60 * 24 * 70;
+
+/** How long a shared answer stays good.
+ *
+ *  We were paying full price to answer the same question repeatedly. "What eats
+ *  a Victoria plum in Norway and what does it fall ill with" has one answer —
+ *  it is the plum's answer, not the owner's, and it is as true tomorrow as
+ *  today. Keyed on the question rather than on who asked it, the first person
+ *  to scan a plum pays for it and everyone after reads it back.
+ *
+ *  Only the kinds the owner does not pay for are cached. That keeps the rule
+ *  easy to state — we cache what is free — and means a cache hit can never
+ *  make a balance behave in a way nobody can explain. */
+const CACHE_TTL: Partial<Record<string, number>> = {
+  threats: 60 * 60 * 24 * 30,   // species facts move on a scale of years
+  equipment: 60 * 60 * 24 * 7,  // what a garden needs shifts with the season
+  weather: 60 * 60 * 6,         // conditions move through the day
+};
+
+/** Text-only requests only. An image is unique to the person who took it, so
+ *  it would never be hit again and hashing megabytes of base64 to discover
+ *  that would cost more than it saves. */
+function cacheKeyFor(kind: string, system: string | undefined, messages: unknown[]): string | null {
+  if (!CACHE_TTL[kind]) return null;
+  const body = JSON.stringify(messages);
+  if (body.includes('"type":"image"')) return null;
+  return `ans:${kind}:${createHash("sha256").update((system ?? "") + body).digest("hex").slice(0, 32)}`;
+}
 
 function fail(status: number, code: string, message: string, extra?: object) {
   return NextResponse.json({ error: { code, message }, ...extra }, { status });
@@ -86,6 +114,17 @@ export async function POST(req: NextRequest) {
   if (ipRate === 1) await redis.expire(`rl:i:${ip}:${minute}`, 120);
   if (ipRate > IP_CALLS_PER_MIN) {
     return fail(429, "RATE_LIMIT", "Too many requests, slow down");
+  }
+
+  /* Looked up before the quota is touched. A hit costs us nothing, so it must
+     not consume the owner's allowance either — but the rate limits above still
+     apply, because a cache is not a reason to let anyone hammer the door. */
+  const cacheKey = cacheKeyFor(kind, system as string | undefined, messages as unknown[]);
+  if (cacheKey) {
+    const hit = await redis.get<{ content: unknown }>(cacheKey);
+    if (hit?.content) {
+      return NextResponse.json({ content: hit.content, cached: true });
+    }
   }
 
   const premium = await isPremium(redis, deviceId);
@@ -168,6 +207,12 @@ export async function POST(req: NextRequest) {
       return fail(502, "TRUNCATED", "The reply was cut short; nothing was charged");
     }
 
+    if (cacheKey) {
+      // Best effort. A cache that cannot be written is a slower service, not a
+      // broken one, so a failure here must never cost the caller their answer.
+      await redis.set(cacheKey, { content: message.content }, { ex: CACHE_TTL[kind]! }).catch(() => {});
+    }
+
     const [monthlyUsed, freeUsed, credits] = await Promise.all([
       redis.get<number>(monthKey),
       redis.get<number>(freeKey),
@@ -176,6 +221,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       content: message.content,
+      // What the call actually cost us. Returned so pricing can be argued from
+      // measurements rather than from guesses about how long a reply looks.
+      usage: {
+        in: message.usage.input_tokens,
+        out: message.usage.output_tokens,
+      },
       state: {
         premium,
         monthlyUsed: monthlyUsed ?? 0,
