@@ -116,10 +116,10 @@ export default function Home() {
     },
   ];
 
-  const quotes = [
+  const quotes: { who: string; text: string; stars?: number }[] = [
     { who: "A fern, formerly", text: "I requested water for six weeks. Nobody listened. Then they installed the app. Alas, too late for me." },
     { who: "A very smug cactus", text: "I personally required no assistance. My owner, however, required a great deal." },
-    { who: "A brown slug — one star", text: "Dreadful. They located me at once and relocated me humanely. Where is the sport in that?" },
+    { who: "A brown slug", stars: 1, text: "Dreadful. They located me at once and relocated me humanely. Where is the sport in that?" },
     { who: "A tomato plant", text: "A frost warning arrived at ten in the evening. I was covered. I survived. I owe this app my marinara." },
     { who: "A rose bush", text: "At last, someone who knows precisely when to prune. The audacity I had endured until now." },
     { who: "An anonymous weed", text: "Would not recommend. Registered as a 'Garden Devil'. The disrespect. The accuracy." },
@@ -389,19 +389,19 @@ export default function Home() {
                 name: "Bronze",
                 who: "A few pots, and some curiosity.",
                 body: "Twenty-five actions a month is a windowsill, a balcony, or a garden you have already got the measure of. Enough to identify what the neighbour planted over the fence and ask why it looks like that.",
-                price: "29 kr", per: "a month", year: "or 290 kr a year",
+                price: "29 kr", eur: "2,49 €", per: "a month", year: "or 290 kr / 24,99 € a year",
               },
               {
                 name: "Silver",
                 who: "A garden that asks something of you every week.",
                 body: "Sixty actions a month. Room to load a border in one sitting, work out what is eating the roses, and still have plenty left when something unexpected comes up in August.",
-                price: "49 kr", per: "a month", year: "or 490 kr a year",
+                price: "49 kr", eur: "4,49 €", per: "a month", year: "or 490 kr / 44,99 € a year",
               },
               {
                 name: "Gold",
                 who: "You would rather stop counting.",
                 body: "A hundred and fifty actions a month, which is more than a large garden manages to use. That is the actual point: you stop thinking about it and simply ask.",
-                price: "79 kr", per: "a month", year: "or 790 kr a year", top: true,
+                price: "79 kr", eur: "6,99 €", per: "a month", year: "or 790 kr / 69,99 € a year", top: true,
               },
             ].map((tier) => (
               <div
@@ -413,7 +413,7 @@ export default function Home() {
                 <h3 style={serif} className="text-xl font-semibold mb-3 leading-snug">{tier.who}</h3>
                 <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#4d5a2a" }}>{tier.body}</p>
                 <p style={{ ...serif, color: "#2c3517" }} className="text-3xl font-semibold">
-                  {tier.price} <span className="text-lg font-normal" style={{ color: "#9aa861" }}>{tier.per}</span>
+                  {tier.price} <span className="text-lg font-normal" style={{ color: "#9aa861" }}>/ {tier.eur} {tier.per}</span>
                 </p>
                 <p className="text-sm mt-1" style={{ color: "#9aa861" }}>{tier.year}</p>
               </div>
@@ -426,14 +426,14 @@ export default function Home() {
             </h3>
             <p className="text-sm leading-relaxed" style={{ color: "#4d5a2a" }}>
               The app is free, and stays free. When the ten actions you begin with run out, you can
-              buy more a handful at a time — <strong>from 49 kr for twenty</strong>. They never expire,
+              buy more a handful at a time — <strong>from 49 kr / 4,49 € for twenty actions</strong>. They never expire,
               there is nothing to renew and nothing to remember to cancel. Some gardens want attention
               twice a year and then nothing until spring, and we shall not bill you monthly for that.
             </p>
           </div>
 
           <p className="text-center text-xs mt-10" style={{ color: "#9aa861" }}>
-            The App Store will quote you in your own currency. We are told that is the civilised arrangement.
+            Prices shown in kroner and euro; the App Store will quote you in your own currency, which we are told is the civilised arrangement. Swedish and Danish kroner are close cousins of the Norwegian, and Apple works out the difference.
           </p>
         </div>
       </section>
@@ -441,13 +441,13 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-24 px-6" style={{ backgroundColor: "#9aa861" }}>
         <div className="max-w-5xl mx-auto">
-          <p style={{ color: "#2c3517" }} className="text-center text-sm tracking-[0.3em] uppercase mb-3">Notices from the garden</p>
+          <p style={{ color: "#2c3517" }} className="text-center text-sm font-bold tracking-[0.3em] uppercase mb-3">Notices from the garden</p>
           <h2 style={{ ...serif, color: "#2c3517" }} className="text-4xl font-semibold text-center mb-3">What the garden is saying</h2>
           <p className="text-center mb-14" style={{ color: "#2c3517" }}>Reviews from actual plants. And one slug.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quotes.map((q) => (
               <div key={q.who} className="rounded-2xl p-7" style={{ backgroundColor: "#f6f1e6" }}>
-                <div className="mb-3 tracking-widest" style={{ color: "#c2a14e" }}>★★★★★</div>
+                <div className="mb-3 tracking-widest" style={{ color: "#c2a14e" }}>{"★".repeat(q.stars ?? 5)}</div>
                 <p style={{ ...serif, color: "#2c3517" }} className="text-lg italic leading-relaxed mb-4">&quot;{q.text}&quot;</p>
                 <p className="text-xs tracking-wide uppercase" style={{ color: "#4d5a2a" }}>— {q.who}</p>
               </div>
