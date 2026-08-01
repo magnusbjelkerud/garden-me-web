@@ -37,7 +37,10 @@ export const KINDS: Record<Kind, KindConfig> = {
   // it had grown long enough to push past a minute. Free and capped rather
   // than charged: the app asks for this on its own, and a balance the owner
   // is watching should only move when they asked for something.
-  threats:   { model: "claude-sonnet-4-6", maxTokens: 900,  cost: 0, freeCap: 30, premiumCap: 200, capWindow: "month" },
+  // Everything about the year rather than the plant in your hand: the task
+  // wheel, who will eat it, and what it falls ill with. The wire name stayed
+  // "threats" from when that was all it carried.
+  threats:   { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, freeCap: 30, premiumCap: 200, capWindow: "month" },
 };
 
 /** One-time welcome allowance so a new user can load a real garden and see the
