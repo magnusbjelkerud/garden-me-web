@@ -61,7 +61,11 @@ export interface TierConfig {
  *  between everyone asking the same question, the floor is now small — but it
  *  should still not be flat. */
 export const TIERS: Record<Tier, TierConfig> = {
-  free:   { monthly: 0,   weatherPerDay: 1, equipmentPerMonth: 3,  followupPerMonth: 30 },
+  // The equipment list is the one background call the shared cache barely
+  // helps with — a garden's composition is close to unique, so almost every
+  // request is a miss. At 0.3 kr each it was the whole of what a free user
+  // cost per month. Free accounts no longer generate one; paid ones do.
+  free:   { monthly: 0,   weatherPerDay: 1, equipmentPerMonth: 0,  followupPerMonth: 30 },
   bronze: { monthly: 25,  weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60 },
   silver: { monthly: 60,  weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120 },
   gold:   { monthly: 150, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250 },
