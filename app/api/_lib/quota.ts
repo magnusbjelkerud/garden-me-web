@@ -51,6 +51,8 @@ export interface TierConfig {
   /** Charged actions per month. Advertised explicitly — never call it unlimited. */
   monthly: number;
   weatherPerDay: number;
+  /** Second looks after the owner says an identification is wrong. */
+  retryPerDay: number;
   equipmentPerMonth: number;
   followupPerMonth: number;
 }
@@ -65,10 +67,10 @@ export const TIERS: Record<Tier, TierConfig> = {
   // helps with — a garden's composition is close to unique, so almost every
   // request is a miss. At 0.3 kr each it was the whole of what a free user
   // cost per month. Free accounts no longer generate one; paid ones do.
-  free:   { monthly: 0,   weatherPerDay: 1, equipmentPerMonth: 0,  followupPerMonth: 30 },
-  bronze: { monthly: 25,  weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60 },
-  silver: { monthly: 60,  weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120 },
-  gold:   { monthly: 150, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250 },
+  free:   { monthly: 0,   retryPerDay: 10, weatherPerDay: 1, equipmentPerMonth: 0,  followupPerMonth: 30 },
+  bronze: { monthly: 25,  retryPerDay: 15, weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60 },
+  silver: { monthly: 60,  retryPerDay: 25, weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120 },
+  gold:   { monthly: 150, retryPerDay: 40, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250 },
 };
 
 /** Store product identifier to the tier it grants. Keys must match App Store
@@ -81,6 +83,10 @@ export const SUBSCRIPTIONS: Record<string, Tier> = {
 
 /** Which tier allowance governs each free background kind. */
 export const CAP_FIELD: Partial<Record<Kind, keyof TierConfig>> = {
+  // Missing this entry meant `cap` fell through to 0, so every retry was
+  // refused by the quota before it reached the model — the owner pressed
+  // "think again", nothing changed, and nothing said why.
+  plant_retry: "retryPerDay",
   weather: "weatherPerDay",
   equipment: "equipmentPerMonth",
   threats: "followupPerMonth",
