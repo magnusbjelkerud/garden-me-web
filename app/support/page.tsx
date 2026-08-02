@@ -27,7 +27,7 @@ export default function Support() {
     },
     {
       h: "If the garden is only on my phone, how does the neighbour see it?",
-      p: "Because sharing uploads a copy. When you make a link, we take a snapshot of that garden — plant names, what wants doing, the notes for whoever is watering — and put it on our server so a browser can open it without an app or an account. It is the one time the garden leaves your phone, and it is the only way a link could work. The copy deletes itself after ninety days, or sooner if you ask us.",
+      p: "Because sharing uploads a copy. When you make a link, we take a snapshot of that garden — plant names, what wants doing, the notes for whoever is watering, and a small photograph of each plant — and put it on our server so a browser can open it without an app or an account. It is the one time the garden leaves your phone, and it is the only way a link could work. The copy deletes itself after ninety days, or sooner if you ask us.",
     },
     {
       h: "How do I cancel a subscription?",
@@ -47,7 +47,7 @@ export default function Support() {
     },
     {
       h: "What do you know about me?",
-      p: "No account, no name, no email address. Photographs and questions pass through our server to Anthropic to be answered; we keep a count of how many actions your device has used so the allowance works, and briefly your IP address to stop abuse. Your rough location goes up for weather alerts, along with a notification token so the alerts can reach you when the app is closed. If you have shared the garden, a copy of it sits on our server too. None of it is tied to a name, none of it is sold, and none of it advertises to you. The details are in the privacy policy.",
+      p: "No account, no name, no email address. Photographs and questions pass through our server to Anthropic to be answered; we keep a count of how many actions your device has used so the allowance works, and briefly your IP address to stop abuse. Your rough location goes up for weather alerts, along with a notification token so the alerts can reach you when the app is closed. If you have shared the garden, a copy of it sits on our server too, thumbnails included. None of it is tied to a name, none of it is sold, and none of it advertises to you. The details are in the privacy policy.",
     },
     {
       h: "Can I have my data deleted?",

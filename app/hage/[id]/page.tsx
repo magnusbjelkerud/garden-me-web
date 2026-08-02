@@ -84,7 +84,15 @@ export default async function SharedGardenPage({ params }: { params: Promise<{ i
         <ul className="space-y-3 list-none p-0">
           {g.plants.map((p, i) => (
             <li key={i} className="rounded-2xl p-5 border flex gap-4" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
-              <span className="text-2xl leading-none">{p.emoji}</span>
+              {/* A plain img, not next/image: these are data URIs held in Redis
+                  for ninety days, not files the optimiser could ever fetch. */}
+              {p.photo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.photo} alt="" width={64} height={64}
+                  className="rounded-xl object-cover shrink-0" style={{ width: 64, height: 64 }} />
+              ) : (
+                <span className="text-2xl leading-none">{p.emoji}</span>
+              )}
               <div>
                 <p className="font-semibold" style={{ color: "#2c3517" }}>{p.name}</p>
                 {p.latin && <p className="text-sm italic" style={{ color: "#a8a29e" }}>{p.latin}</p>}

@@ -9,7 +9,9 @@ import { NextRequest, NextResponse } from "next/server";
 // Re-sharing overwrites the same id, so the link an owner gave out keeps working.
 
 const TTL = 60 * 60 * 24 * 90; // a long holiday, then it lets go
-const MAX_BODY = 200_000;
+// Room for a couple of dozen 160-pixel thumbnails alongside the text.
+// Still an order of magnitude below the value size Redis will take.
+const MAX_BODY = 500_000;
 
 export interface SharedGarden {
   gardenName: string;
@@ -20,7 +22,7 @@ export interface SharedGarden {
   nothingDue: string;
   footer: string;
   tasks: { plant: string; emoji: string; task: string; detail?: string }[];
-  plants: { name: string; emoji: string; latin?: string; note?: string; water?: string }[];
+  plants: { name: string; emoji: string; latin?: string; note?: string; water?: string; photo?: string }[];
   updatedAt: number;
 }
 

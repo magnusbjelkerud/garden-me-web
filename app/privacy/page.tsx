@@ -30,7 +30,8 @@ export default function PrivacyPage() {
     {
       h: "Sharing a garden",
       body: [
-        "Making a link for a neighbour uploads a copy of that garden to our server — plant names, what wants doing, and the notes for whoever is watering. It is the one time a garden leaves the device, and it is the only way a link could open in a browser without an app or an account.",
+        "Making a link for a neighbour uploads a copy of that garden to our server — plant names, what wants doing, the notes for whoever is watering, and a small photograph of each plant so the helper can tell one from another. It is the one time a garden leaves the device, and it is the only way a link could open in a browser without an app or an account.",
+        "The photographs are thumbnails, 160 pixels wide, made from the picture you chose as that plant's cover. Full-size photographs never leave the phone.",
         "The copy expires ninety days after it was last updated, and can be deleted sooner on request. Anyone holding the link can read it, so treat it as you would any unlisted web page.",
       ],
     },
