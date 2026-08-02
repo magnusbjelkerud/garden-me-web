@@ -26,8 +26,20 @@ export default function Support() {
       p: "Your garden lives on the device, not on our servers. Deleting the app deletes the garden with it. Your subscription and any credits do survive — tap Restore purchases in the paywall.",
     },
     {
-      h: "How do I cancel Garden Me +?",
-      p: "In iOS Settings, under your name, then Subscriptions. We cannot cancel it for you — Apple does not permit it, and would not be right in any case. Credits you have bought are not a subscription and need no cancelling.",
+      h: "If the garden is only on my phone, how does the neighbour see it?",
+      p: "Because sharing uploads a copy. When you make a link, we take a snapshot of that garden — plant names, what wants doing, the notes for whoever is watering — and put it on our server so a browser can open it without an app or an account. It is the one time the garden leaves your phone, and it is the only way a link could work. The copy deletes itself after ninety days, or sooner if you ask us.",
+    },
+    {
+      h: "How do I cancel a subscription?",
+      p: "In iOS Settings, under your name, then Subscriptions. Bronze, Silver and Gold all live there. We cannot cancel one for you — Apple does not permit it, and it would not be right in any case. Credits you have bought are not a subscription and need no cancelling.",
+    },
+    {
+      h: "Twenty actions costs the same as a month of Silver. Why?",
+      p: "Because you are buying two different things. Silver is sixty actions a month, every month, and it stops when you stop it. Twenty actions is twenty actions, and they sit there until you use them — through a winter, or two, or until you remember the app exists again in April. A subscription is always the better rate per action; that is rather the point of it. The packs are for gardens that want attention twice a year, where a monthly bill would be an insult.",
+    },
+    {
+      h: "Which subscription should I take?",
+      p: "Bronze if you have a few pots. Silver if the garden asks you something most weeks. Gold if you would rather stop counting — a hundred and fifty a month is more than a large garden manages to use, which is the whole idea. You can move between them in iOS Settings, and moving up takes effect at once.",
     },
     {
       h: "Did the app get a plant wrong?",
@@ -35,11 +47,11 @@ export default function Support() {
     },
     {
       h: "What do you know about me?",
-      p: "No account, no name, no email address. The app sends photographs and questions to Anthropic to be answered, and your rough location for weather and to find nearby garden centres. Nothing is sold, and nothing is used to advertise to you. The details are in the privacy policy.",
+      p: "No account, no name, no email address. Photographs and questions pass through our server to Anthropic to be answered; we keep a count of how many actions your device has used so the allowance works, and briefly your IP address to stop abuse. Your rough location goes up for weather alerts, along with a notification token so the alerts can reach you when the app is closed. If you have shared the garden, a copy of it sits on our server too. None of it is tied to a name, none of it is sold, and none of it advertises to you. The details are in the privacy policy.",
     },
     {
       h: "Can I have my data deleted?",
-      p: "Delete the app and the garden goes with it. For what sits on our servers — a device identifier, a balance, your last known area — write to us and it is removed. There is not much of it.",
+      p: "Delete the app and the garden goes with it. For what sits on our servers — a device identifier, a balance, your last known area, and any garden you have shared a link to — write to us and it is removed. There is not much of it.",
     },
     {
       h: "Is the advice to be trusted?",

@@ -28,6 +28,13 @@ export default function PrivacyPage() {
       ],
     },
     {
+      h: "Sharing a garden",
+      body: [
+        "Making a link for a neighbour uploads a copy of that garden to our server — plant names, what wants doing, and the notes for whoever is watering. It is the one time a garden leaves the device, and it is the only way a link could open in a browser without an app or an account.",
+        "The copy expires ninety days after it was last updated, and can be deleted sooner on request. Anyone holding the link can read it, so treat it as you would any unlisted web page.",
+      ],
+    },
+    {
       h: "Location",
       body: ["Location data is used for finding nearby garden centres and for weather alerts. We do not build location history or track movement."],
     },

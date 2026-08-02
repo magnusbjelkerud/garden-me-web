@@ -401,7 +401,7 @@ export default function Home() {
                 name: "Gold",
                 who: "You would rather stop counting.",
                 body: "A hundred and fifty actions a month, which is more than a large garden manages to use. That is the actual point: you stop thinking about it and simply ask.",
-                price: "79 kr", eur: "6,99 €", per: "a month", year: "or 790 kr / 69,99 € a year", top: true,
+                price: "79 kr", eur: "6,99 €", per: "a month", year: "or 869 kr / 74,99 € a year", top: true,
               },
             ].map((tier) => (
               <div
@@ -429,6 +429,12 @@ export default function Home() {
               buy more a handful at a time — <strong>from 49 kr / 4,49 € for twenty actions</strong>. They never expire,
               there is nothing to renew and nothing to remember to cancel. Some gardens want attention
               twice a year and then nothing until spring, and we shall not bill you monthly for that.
+            </p>
+            <p className="text-sm leading-relaxed mt-4" style={{ color: "#9aa861" }}>
+              Yes, twenty actions costs about what a month of Silver does, and Silver would give you
+              sixty. That is not a mistake. A subscription is always the better rate — that is rather
+              the point of one. What you are buying instead is the absence of a subscription: twenty
+              actions that will still be there next April, with nothing to cancel in between.
             </p>
           </div>
 
