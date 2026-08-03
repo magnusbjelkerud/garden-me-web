@@ -329,7 +329,13 @@ export default function Home() {
             <p className="text-base" style={{ ...serif, color: "#d2ad5c" }}>
               We never recommend harmful chemicals — neither for your garden nor the little rascals.
               Every method we suggest is natural, organic, and kind to the soil. Hand-picking, copper tape,
-              beer traps, companion planting. A garden at war with itself is no garden at all.
+              beer traps, companion planting.
+            </p>
+            {/* Pulled out of the paragraph above. It was the line the whole box
+                exists to arrive at, and it was reading as the fourth item in a
+                list of pest remedies. */}
+            <p className="text-xl md:text-2xl font-semibold mt-5 leading-snug" style={{ ...serif, color: "#f6f1e6" }}>
+              A garden at war with itself is no garden at all.
             </p>
           </div>
           <p className="text-sm mt-8 italic" style={{ ...serif, color: "#c2a14e" }}>
