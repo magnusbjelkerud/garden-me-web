@@ -389,13 +389,13 @@ export default function Home() {
                 name: "Bronze",
                 who: "A few pots, and some curiosity.",
                 body: "Twenty-five actions a month is a windowsill, a balcony, or a garden you have already got the measure of. Enough to identify what the neighbour planted over the fence and ask why it looks like that.",
-                price: "29 kr", eur: "2,49 €", per: "a month", year: "or 290 kr / 24,99 € a year",
+                price: "29 kr", eur: "2,49 €", per: "a month", year: "or 299 kr / 26,99 € a year",
               },
               {
                 name: "Silver",
                 who: "A garden that asks something of you every week.",
                 body: "Sixty actions a month. Room to load a border in one sitting, work out what is eating the roses, and still have plenty left when something unexpected comes up in August.",
-                price: "49 kr", eur: "4,49 €", per: "a month", year: "or 490 kr / 44,99 € a year",
+                price: "49 kr", eur: "4,49 €", per: "a month", year: "or 499 kr / 44,99 € a year",
               },
               {
                 name: "Gold",
