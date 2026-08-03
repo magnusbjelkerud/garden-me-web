@@ -401,7 +401,7 @@ export default function Home() {
                 name: "Gold",
                 who: "You would rather stop counting.",
                 body: "A hundred and fifty actions a month, which is more than a large garden manages to use. That is the actual point: you stop thinking about it and simply ask.",
-                price: "79 kr", eur: "6,99 €", per: "a month", year: "or 869 kr / 74,99 € a year", top: true,
+                price: "79 kr", eur: "6,99 €", per: "a month", year: "or 899 kr / 79,99 € a year", top: true,
               },
             ].map((tier) => (
               <div
