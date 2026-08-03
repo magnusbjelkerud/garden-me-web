@@ -339,11 +339,14 @@ export default function Home() {
       </section>
 
       {/* Who is it for */}
-      <section className="py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
+      {/* Its own colour. This and the pricing section below both sat on cream
+          with white cards, so the page ran straight through the join without
+          anyone noticing they had arrived somewhere new. */}
+      <section className="py-24 px-6" style={{ backgroundColor: "#9aa861" }}>
         <div className="max-w-4xl mx-auto text-center">
-          <p style={{ color: "#c2a14e" }} className="text-sm tracking-[0.3em] uppercase mb-3">For whom</p>
-          <h2 style={serif} className="text-4xl font-semibold mb-3">Who is Garden Me for?</h2>
-          <p className="mb-14" style={{ color: "#4d5a2a" }}>You, in all likelihood.</p>
+          <p style={{ color: "#2c3517" }} className="text-sm tracking-[0.3em] uppercase mb-3">For whom</p>
+          <h2 style={{ ...serif, color: "#2c3517" }} className="text-4xl font-semibold mb-3">Who is Garden Me for?</h2>
+          <p className="mb-14" style={{ color: "#2c3517" }}>You, in all likelihood.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             {personas.map((p) => (
               <div key={p.who} className="rounded-2xl p-8 border" style={{ backgroundColor: "#ffffff", borderColor: "#e5ddc8" }}>
@@ -358,6 +361,16 @@ export default function Home() {
       {/* Pricing */}
       <section id="pricing" className="py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
         <div className="max-w-4xl mx-auto">
+          {/* The same mark that sits in the app's header and opens the paywall.
+              Somebody who has read this page should recognise it on the day they
+              tap it, rather than meeting it for the first time. */}
+          <div className="flex justify-center mb-4" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c2a14e"
+              strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+              <path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" />
+            </svg>
+          </div>
           <p style={{ color: "#c2a14e" }} className="text-center text-sm tracking-[0.3em] uppercase mb-3">What it costs</p>
           <h2 style={serif} className="text-4xl font-semibold text-center mb-4">
             How much garden have you got?
