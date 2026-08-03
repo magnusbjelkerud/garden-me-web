@@ -16,6 +16,10 @@ interface RCEvent {
   product_id?: string;
   expiration_at_ms?: number;
   cancel_reason?: string;
+  /** Present only on TRANSFER. RevenueCat sends the ids it moved away from and
+   *  the ids it moved to, each as an array. */
+  transferred_from?: string[];
+  transferred_to?: string[];
 }
 
 export async function POST(req: NextRequest) {
@@ -89,6 +93,39 @@ export async function POST(req: NextRequest) {
       const balance = await redis.decrby(`bal:${deviceId}`, pack);
       if (balance < 0) await redis.set(`bal:${deviceId}`, 0);
       return NextResponse.json({ ok: true, revoked: pack, balance: Math.max(0, balance) });
+    }
+
+    /* A new phone. RevenueCat moves the purchase to the new app user id and
+       tells us about it — and we were ignoring it, so somebody who had paid
+       lost their allowance the moment they changed devices and did not get it
+       back until the subscription next renewed.
+
+       Both halves move: the subscription tier, and any credits bought outright,
+       which are the ones a person is most likely to feel robbed of. */
+    case "TRANSFER": {
+      const from = event.transferred_from ?? [];
+      const to = event.transferred_to ?? [];
+      if (!from.length || !to.length) {
+        return NextResponse.json({ ok: true, ignored: "transfer without ids" });
+      }
+      const target = to[0];
+      let moved = 0;
+      for (const old of from) {
+        const tier = await redis.get(`prem:${old}`);
+        if (tier !== null) {
+          const ttl = await redis.ttl(`prem:${old}`);
+          await redis.set(`prem:${target}`, tier, ttl > 0 ? { ex: ttl } : { ex: 60 * 60 * 24 * 32 });
+          await redis.del(`prem:${old}`);
+          moved++;
+        }
+        const balance = await redis.get<number>(`bal:${old}`);
+        if (balance && balance > 0) {
+          await redis.incrby(`bal:${target}`, balance);
+          await redis.del(`bal:${old}`);
+          moved++;
+        }
+      }
+      return NextResponse.json({ ok: true, transferred: target, moved });
     }
 
     default:
