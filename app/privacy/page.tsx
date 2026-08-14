@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SiteNav from "../SiteNav";
 const serif = { fontFamily: "var(--font-serif)" };
 
 export default function PrivacyPage() {
@@ -46,13 +46,11 @@ export default function PrivacyPage() {
   ];
 
   return (
-    <main className="min-h-screen py-20 px-6" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
+      <SiteNav />
+      <main className="py-16 px-6">
       <div className="max-w-2xl mx-auto">
-        <a href="/" aria-label="Garden Me — home" className="inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
-          <Image src="/logo.png" alt="Garden Me" width={32} height={32} />
-          <span style={{ ...serif, color: "#2c3517" }} className="text-xl font-semibold tracking-wide">Garden Me</span>
-        </a>
-        <h1 style={serif} className="text-4xl font-semibold mt-6 mb-2">Privacy Policy</h1>
+        <h1 style={serif} className="text-4xl font-semibold mb-2">Privacy Policy</h1>
         <p className="text-sm mb-12" style={{ color: "#4d5a2a" }}>Last updated: August 2026</p>
 
         {sections.map((s) => (
@@ -78,6 +76,7 @@ export default function PrivacyPage() {
           </p>
         </section>
       </div>
-    </main>
+      </main>
+    </div>
   );
 }

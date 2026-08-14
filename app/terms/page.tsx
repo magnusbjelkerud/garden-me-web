@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SiteNav from "../SiteNav";
 const serif = { fontFamily: "var(--font-serif)" };
 
 export default function TermsPage() {
@@ -12,14 +12,12 @@ export default function TermsPage() {
   ];
 
   return (
-    <main className="min-h-screen py-20 px-6" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
+      <SiteNav />
+      <main className="py-16 px-6">
       <div className="max-w-2xl mx-auto">
-        <a href="/" aria-label="Garden Me — home" className="inline-flex items-center gap-3 hover:opacity-70 transition-opacity">
-          <Image src="/logo.png" alt="Garden Me" width={32} height={32} />
-          <span style={{ ...serif, color: "#2c3517" }} className="text-xl font-semibold tracking-wide">Garden Me</span>
-        </a>
-        <h1 style={serif} className="text-4xl font-semibold mt-6 mb-2">Terms of Service</h1>
-        <p className="text-sm mb-12" style={{ color: "#4d5a2a" }}>Last updated: June 2026</p>
+        <h1 style={serif} className="text-4xl font-semibold mb-2">Terms of Service</h1>
+        <p className="text-sm mb-12" style={{ color: "#4d5a2a" }}>Last updated: August 2026</p>
 
         <p className="leading-relaxed mb-8" style={{ color: "#4d5a2a" }}>By using Garden Me you agree to the following:</p>
 
@@ -31,7 +29,70 @@ export default function TermsPage() {
             </li>
           ))}
         </ol>
+
+        {/* Apple guideline 3.1.2 requires the subscription terms and a link to
+            the Terms of Use (EULA) to be reachable from the app itself. The
+            paywall links here, so this is where they must live — the first
+            submission was refused for want of exactly this. */}
+        <section className="mt-16">
+          <h2 style={serif} className="text-2xl font-semibold mb-4">Subscriptions and credits</h2>
+
+          <p className="leading-relaxed mb-4" style={{ color: "#4d5a2a" }}>
+            Garden Me is free to use. Recording plants, reminders, the year wheel, pest
+            tracking, shopping lists, the journal and weather warnings cost nothing and
+            always will. Only the AI actions — identification, questions and light checks —
+            are counted, and every account begins with ten of them.
+          </p>
+
+          <p className="leading-relaxed mb-4" style={{ color: "#4d5a2a" }}>
+            <strong>Bronze, Silver and Gold</strong> are auto-renewing subscriptions,
+            offered monthly or yearly, granting 25, 60 and 150 actions per month
+            respectively. The price and period are shown in the app before you confirm,
+            and payment is charged to your Apple ID account at confirmation of purchase.
+          </p>
+
+          <p className="leading-relaxed mb-4" style={{ color: "#4d5a2a" }}>
+            A subscription renews automatically unless it is cancelled at least 24 hours
+            before the end of the current period, and is charged for renewal within the
+            24 hours before that period ends. You may manage or cancel it at any time in
+            iOS Settings, under your name, then Subscriptions. We cannot cancel one on
+            your behalf — Apple does not permit it.
+          </p>
+
+          <p className="leading-relaxed mb-4" style={{ color: "#4d5a2a" }}>
+            <strong>Action packs</strong> of 20, 60 and 150 are one-off purchases rather
+            than subscriptions. They do not renew, they do not expire, and there is
+            nothing to cancel. Unused actions from a subscription do not carry into the
+            following month; purchased packs are unaffected and simply wait.
+          </p>
+
+          <p className="leading-relaxed mb-8" style={{ color: "#4d5a2a" }}>
+            All payments are handled by Apple. We never see your card details, and
+            refunds are requested from Apple rather than from us.
+          </p>
+
+          <h2 style={serif} className="text-2xl font-semibold mb-4">Terms of Use (EULA)</h2>
+          <p className="leading-relaxed" style={{ color: "#4d5a2a" }}>
+            In addition to the terms above, your use of Garden Me is governed by Apple's
+            standard End User Licence Agreement:{" "}
+            <a
+              href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+              className="underline"
+              style={{ color: "#c2a14e" }}
+            >
+              Apple Standard EULA
+            </a>
+            .
+          </p>
+        </section>
+
+        <div className="mt-14 pt-8 flex gap-6 text-sm flex-wrap" style={{ borderTop: "1px solid #e5ddc8", color: "#9aa861" }}>
+          <a href="/faq" className="underline hover:opacity-70">Questions &amp; Answers</a>
+          <a href="/support" className="underline hover:opacity-70">Support</a>
+          <a href="/privacy" className="underline hover:opacity-70">Privacy Policy</a>
+        </div>
       </div>
-    </main>
+      </main>
+    </div>
   );
 }

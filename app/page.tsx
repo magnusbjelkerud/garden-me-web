@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SiteNav from "./SiteNav";
 
 const serif = { fontFamily: "var(--font-serif)" };
 
@@ -8,6 +9,11 @@ export default function Home() {
       icon: "🔍",
       title: "Plant Detective",
       desc: "Photograph any plant and receive an identification down to the cultivar where the evidence allows — not merely 'apple tree', but which apple tree. Leaf, bark, fruit and habit all considered.",
+    },
+    {
+      icon: "✎",
+      title: "Write It Down for Nothing",
+      desc: "Not every plant needs identifying. If you already know it is a rhubarb, type “rhubarb” and it costs you nothing at all — no photograph, no action spent, no ceremony. Record the whole garden for free, and save the asking for the ones you genuinely wonder about.",
     },
     {
       icon: "📅",
@@ -20,6 +26,16 @@ export default function Home() {
       desc: "Slugs, weeds, invasive species, disease. Identify your adversaries, track their advance, and receive removal advice — natural methods only. The slugs do not deserve a war crime.",
     },
     {
+      icon: "🦌",
+      title: "Uninvited Guests",
+      desc: "The roe deer strips a newly planted apple in its first winter, and by the time there is damage worth photographing the tree is already finished. So we name who is coming before they arrive — deer, elk, voles, hares — and what to do about it, with measurements. Mesh width, guard height, the month it must be standing. Not merely “protect from deer”.",
+    },
+    {
+      icon: "🩺",
+      title: "Ailments Worth Recognising",
+      desc: "A reminder that says “watch for silver leaf in August” is no use whatever to somebody who has never seen silver leaf. So every plant carries the illnesses that actually threaten it: what you will see, in the order you will notice it, and the one test that settles the matter — cut a dying branch and look for the dark stain in the wood.",
+    },
+    {
       icon: "🔬",
       title: "Damage Forensics",
       desc: "The culprit has fled, but the evidence remains. Photograph a half-eaten leaf and we deduce the offender — slug, caterpillar, beetle or blight — from the holes, the trails, the telltale spots.",
@@ -27,7 +43,7 @@ export default function Home() {
     {
       icon: "🏷️",
       title: "Should You Even Buy It?",
-      desc: "Standing in the garden centre, holding something beautiful and expensive. Photograph it before you commit and we will tell you plainly what it demands of you — watering, pruning, winter coddling — and how forgiving it is when you forget. Some plants are a joy. Some are a second job.",
+      desc: "Standing in the garden centre, holding something beautiful and expensive. Photograph it before you commit and we will tell you plainly what it demands of you — watering, pruning, winter coddling — and how forgiving it is when you forget. Photograph the label rather than the leaves if you like: a printed cultivar name beats any amount of squinting at foliage. Some plants are a joy. Some are a second job.",
     },
     {
       icon: "🌱",
@@ -47,17 +63,22 @@ export default function Home() {
     {
       icon: "✉",
       title: "A Link for the Neighbour",
-      desc: "Going away? Share the garden as a web page. Whoever is watering will see what needs doing, which plant is which, and how much is too much — no app, no account, no explanation required from you at the airport.",
+      desc: "Going away? Share the garden as a web page. Whoever is watering will see what needs doing, how much is too much, and a photograph of every plant — so “the one by the shed” need never be attempted over a bad line from the airport. No app, no account, no explanation required.",
     },
     {
       icon: "🙅",
       title: "\"No, That Is Wrong\"",
-      desc: "You know your own garden. Reject an identification and Garden Me starts the reasoning over — never offering the same answer twice, and telling you which visible detail separates the new guess from the one you ruled out. Being corrected costs you nothing. It rather ought not to.",
+      desc: "You know your own garden. Reject an identification and Garden Me starts the reasoning over — never offering the same answer twice, and telling you which visible detail separates the new guess from the one you ruled out. You may also simply say what you think it is: “this is a plum tree, I am fairly certain” is treated as the strongest evidence in the room, because you are standing next to it and we are not. Being corrected costs you nothing. It rather ought not to.",
     },
     {
       icon: "🪴",
       title: "Garden, Terrace or Balcony",
       desc: "A window box has nothing in common with an acre. Tell us whether you tend a garden, a terrace, or a single balcony, and the watering, feeding and overwintering advice adapts to your soil — or your charming lack of it.",
+    },
+    {
+      icon: "🗺️",
+      title: "A Garden Here, a Cabin There",
+      desc: "Keep as many gardens as you have places, and give each one its own country. The cabin in Finland is then told about Finnish winters rather than about yours, and a garden below the equator is not warned of frost in July — the seasons turn the right way round on their own. Switch between them from the header; every reminder, warning and piece of advice follows.",
     },
     {
       icon: "✓",
@@ -128,21 +149,7 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f6f1e6", color: "#2c3517" }}>
 
-      {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
-        {/* The wordmark is the way home from anywhere on the site — people reach
-            for it before they reach for the back button. */}
-        <a href="/" aria-label="Garden Me — home" className="flex items-center gap-3 hover:opacity-70 transition-opacity">
-          <Image src="/logo.png" alt="Garden Me" width={36} height={36} />
-          <span style={serif} className="text-2xl font-semibold tracking-wide">Garden Me</span>
-        </a>
-        <div className="flex gap-8 text-sm tracking-wide" style={{ color: "#4d5a2a" }}>
-          <a href="#features" className="hover:opacity-60 transition-opacity">Features</a>
-          <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
-          <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
-          <a href="/support" className="hover:opacity-60 transition-opacity">Support</a>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero */}
       <section className="px-6 py-24 text-center" style={{ backgroundColor: "#2c3517", color: "#f6f1e6" }}>
@@ -208,7 +215,9 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 max-w-5xl mx-auto">
+      {/* scroll-mt keeps the section's top edge clear of the sticky bar when
+          the anchor is jumped to, rather than sliding underneath it. */}
+      <section id="features" className="scroll-mt-16 py-24 px-6 max-w-5xl mx-auto">
         <p style={{ color: "#c2a14e" }} className="text-center text-sm tracking-[0.3em] uppercase mb-3">What it offers</p>
         <h2 style={serif} className="text-4xl font-semibold text-center mb-4" >
           Everything the garden requires.
@@ -365,7 +374,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
+      <section id="pricing" className="scroll-mt-16 py-24 px-6" style={{ backgroundColor: "#f6f1e6" }}>
         <div className="max-w-4xl mx-auto">
           {/* The same mark that sits in the app's header and opens the paywall.
               Somebody who has read this page should recognise it on the day they
@@ -540,9 +549,10 @@ export default function Home() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm" style={{ color: "#9aa861" }}>
           <span style={serif} className="italic">© 2026 Garden Me. No plants were harmed in the making of this app. A few slugs were politely relocated.</span>
           <div className="flex gap-6 tracking-wide">
+            <a href="/faq" className="hover:opacity-60 transition-opacity">FAQ</a>
             <a href="/privacy" className="hover:opacity-60 transition-opacity">Privacy</a>
             <a href="/terms" className="hover:opacity-60 transition-opacity">Terms</a>
-          <a href="/support" className="hover:opacity-60 transition-opacity">Support</a>
+            <a href="/support" className="hover:opacity-60 transition-opacity">Support</a>
             <a href="mailto:magnus@bjelkerud.no" className="hover:opacity-60 transition-opacity">Contact</a>
           </div>
         </div>
