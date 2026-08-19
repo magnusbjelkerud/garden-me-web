@@ -71,9 +71,24 @@ export default function Home() {
       desc: "You know your own garden. Reject an identification and Garden Me starts the reasoning over — never offering the same answer twice, and telling you which visible detail separates the new guess from the one you ruled out. You may also simply say what you think it is: “this is a plum tree, I am fairly certain” is treated as the strongest evidence in the room, because you are standing next to it and we are not. Being corrected costs you nothing. It rather ought not to.",
     },
     {
+      icon: "🌾",
+      title: "What to Sow, and When",
+      desc: "Every gardening app tells you how to look after the plants you already own. This one also tells you what to put in the ground this month — five to eight things worth sowing where you live, in the setting you actually have, with sowing depth and spacing in real numbers rather than a vague handful. January on a Norwegian windowsill is chilli, aubergine and celery, going out in June. August in the open ground is spinach, autumn radish and kale. Under glass it is a different list on the same day, which is rather the point of glass.",
+    },
+    {
+      icon: "🧺",
+      title: "What the Garden Gave Back",
+      desc: "Two kilos of tomatoes on the eleventh. Twelve courgettes nobody asked for. Keep a running note of what you actually picked, and the season adds itself up in the corner of the plant's page. We will happily tell you what you harvested from the plant you planted — and we will still never tell you whether something you found is safe to eat, because being wrong about that is a different order of wrong.",
+    },
+    {
+      icon: "🧑‍🌾",
+      title: "The Allotment",
+      desc: "Schrebergarten, volkstuin, kolonihave, kolonilott — five of our six languages have a word for it and a culture behind it, and it is not a garden. It is a rented plot you reach twice a week, worked in rows, mostly annuals, with a shared tap, no shed and a committee with opinions. So the watering advice assumes four days of absence, crop rotation becomes real advice rather than theory, tools are the ones that fit in a bag, and nothing permanent is suggested without noting that your site may not permit it.",
+    },
+    {
       icon: "🐞",
       title: "The Garden Heroes",
-      desc: "Every garden has a workforce, and most of it is never thanked. Bees, bumblebees, ladybirds, hoverflies, earthworms, spiders, hedgehogs. Garden Me keeps a page for them beside the one for the Gremlins, because the difference is worth stating plainly: gremlins arrive uninvited and eat your plants, and heroes arrive uninvited and eat the ones eating your plants.",
+      desc: "Every garden has a workforce, and most of it is never thanked. Bees, bumblebees, ladybirds, hoverflies, lacewings, earthworms, spiders, hedgehogs, toads and the ground beetle that eats slug eggs out of the soil in April — a slug you never meet being the cheapest slug you will ever have. Garden Me keeps a page for them beside the one for the Gremlins, because the difference is worth stating plainly: gremlins arrive uninvited and eat your plants, and heroes arrive uninvited and eat the ones eating your plants.",
     },
     {
       icon: "🏅",

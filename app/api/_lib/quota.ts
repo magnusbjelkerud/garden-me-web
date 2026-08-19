@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 
-export type Kind = "plant" | "plant_retry" | "devil" | "ask" | "light" | "equipment" | "weather" | "threats";
+export type Kind = "plant" | "plant_retry" | "devil" | "ask" | "light" | "equipment" | "weather" | "threats" | "sowing";
 
 export interface KindConfig {
   model: string;
@@ -39,6 +39,10 @@ export const KINDS: Record<Kind, KindConfig> = {
   // wheel, who will eat it, and what it falls ill with. The wire name stayed
   // "threats" from when that was all it carried.
   threats:   { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, capWindow: "month" },
+  // Hva som skal sås denne måneden. Svaret avhenger av klima, måned og hagetype
+  // — ikke av hvem som spør — så det deles av alle i samme bøtte og treffer
+  // cachen nesten alltid. Derfor gratis, og derfor et romslig tak.
+  sowing:    { model: "claude-sonnet-4-6", maxTokens: 2000, cost: 0, capWindow: "month" },
 };
 
 /** One-time welcome allowance so a new user can load a real garden and see the
@@ -55,6 +59,7 @@ export interface TierConfig {
   retryPerDay: number;
   equipmentPerMonth: number;
   followupPerMonth: number;
+  sowingPerMonth: number;
 }
 
 /** The background allowances rise with the tier because they are a fixed floor
@@ -67,10 +72,10 @@ export const TIERS: Record<Tier, TierConfig> = {
   // helps with — a garden's composition is close to unique, so almost every
   // request is a miss. At 0.3 kr each it was the whole of what a free user
   // cost per month. Free accounts no longer generate one; paid ones do.
-  free:   { monthly: 0,   retryPerDay: 10, weatherPerDay: 1, equipmentPerMonth: 0,  followupPerMonth: 30 },
-  bronze: { monthly: 25,  retryPerDay: 15, weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60 },
-  silver: { monthly: 60,  retryPerDay: 25, weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120 },
-  gold:   { monthly: 150, retryPerDay: 40, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250 },
+  free:   { monthly: 0,   retryPerDay: 10, weatherPerDay: 1, equipmentPerMonth: 0,  followupPerMonth: 30, sowingPerMonth: 4 },
+  bronze: { monthly: 25,  retryPerDay: 15, weatherPerDay: 1, equipmentPerMonth: 5,  followupPerMonth: 60, sowingPerMonth: 8 },
+  silver: { monthly: 60,  retryPerDay: 25, weatherPerDay: 2, equipmentPerMonth: 8,  followupPerMonth: 120, sowingPerMonth: 12 },
+  gold:   { monthly: 150, retryPerDay: 40, weatherPerDay: 2, equipmentPerMonth: 12, followupPerMonth: 250, sowingPerMonth: 20 },
 };
 
 /** Store product identifier to the tier it grants. Keys must match App Store
@@ -90,6 +95,7 @@ export const CAP_FIELD: Partial<Record<Kind, keyof TierConfig>> = {
   weather: "weatherPerDay",
   equipment: "equipmentPerMonth",
   threats: "followupPerMonth",
+  sowing: "sowingPerMonth",
 };
 
 /** Credits granted per consumable product. Keys must match the App Store /

@@ -35,6 +35,7 @@ const CACHE_TTL: Partial<Record<string, number>> = {
   threats: 60 * 60 * 24 * 30,   // species facts move on a scale of years
   equipment: 60 * 60 * 24 * 7,  // what a garden needs shifts with the season
   weather: 60 * 60 * 6,         // conditions move through the day
+  sowing: 60 * 60 * 24 * 20,    // what to sow shifts with the month, not the day
 };
 
 /** Text-only requests only. An image is unique to the person who took it, so
