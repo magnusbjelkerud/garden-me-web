@@ -3,6 +3,12 @@ import SiteNav from "./SiteNav";
 
 const serif = { fontFamily: "var(--font-serif)" };
 
+/* Den ene lenken ut av siden. Sto som href="#" fra siden ble skrevet, fordi
+   appen den gang ikke fantes ennå — og ble stående etter at den gjorde det.
+   Hovedknappen på forsiden gikk altså ingen steder i akkurat den perioden
+   noen kunne ha lastet den ned. */
+const APP_STORE = "https://apps.apple.com/app/id6796947839";
+
 export default function Home() {
   const features = [
     {
@@ -219,7 +225,7 @@ export default function Home() {
             alike. No judgement. Very little, anyway.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
+            <a href={APP_STORE} className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
               App Store
             </a>
             {/* Android is a separate account, build, review and store listing —
@@ -579,7 +585,7 @@ export default function Home() {
           <h2 style={serif} className="text-4xl font-semibold mb-4">Shall we keep things alive?</h2>
           <p className="mb-10" style={{ color: "#9aa861" }}>Download Garden Me. The garden will notice. The ferns may weep with relief.</p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <a href="#" className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
+            <a href={APP_STORE} className="font-medium px-8 py-4 rounded-xl text-base tracking-wide transition-opacity hover:opacity-90" style={{ backgroundColor: "#c2a14e", color: "#2c3517" }}>
               App Store
             </a>
             <span className="font-medium px-8 py-4 rounded-xl text-base tracking-wide border inline-block" style={{ borderColor: "#4d5a2a", color: "#9aa861" }}>

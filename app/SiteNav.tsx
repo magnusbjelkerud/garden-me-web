@@ -22,6 +22,8 @@ export default function SiteNav() {
     { href: "/#features", label: "Features" },
     { href: "/#pricing", label: "Pricing" },
     { href: "/hvorfor", label: "Why" },
+    // Norsk side i en engelsk meny, som /hvorfor. Ordet virker på begge språk.
+    { href: "/hageansatt", label: "Quiz" },
     { href: "/faq", label: "FAQ" },
     { href: "/support", label: "Support" },
   ];
