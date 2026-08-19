@@ -17,7 +17,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 const TTL = 60 * 60 * 24 * 400;   // fornyes ved hver skriving; en hage som ikke synkroniseres på over et år slipper taket
 const MAX_BODY = 2_000_000;
-const CODE = /^[a-hjkmnp-tv-z2-9]{12}$/;   // uten 0/o/1/i/l — de leses feil når koden tastes av papir
+/* Nøyaktig det samme alfabetet som appen trekker fra: a-h j k m n p-z 2-9,
+   altså 31 tegn uten 0, o, 1, i og l, som leses feil når koden tastes av et
+   papir. Første utgave skrev `p-tv-z` og utelot dermed u — omtrent hver tredje
+   kode ville blitt avvist, og bare fordi det er tilfeldig hvilke tegn en kode
+   får, ville feilen sett ut som et ustabilt nettverk. */
+const CODE = /^[a-hjkmnp-z2-9]{12}$/;
 
 const doc = (code: string) => `hh:${code}`;
 const ver = (code: string) => `hh:${code}:v`;
