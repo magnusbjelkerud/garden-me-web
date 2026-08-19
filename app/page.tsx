@@ -97,8 +97,13 @@ export default function Home() {
     },
     {
       icon: "🪴",
-      title: "Garden, Terrace or Balcony",
-      desc: "A window box has nothing in common with an acre. Tell us whether you tend a garden, a terrace, or a single balcony, and the watering, feeding and overwintering advice adapts to your soil — or your charming lack of it.",
+      title: "Garden, Terrace, Balcony or Greenhouse",
+      desc: "A window box has nothing in common with an acre. Tell us whether you tend a garden, a terrace, a single balcony or a greenhouse, and the watering, feeding and overwintering advice adapts to your soil — or your charming lack of it.",
+    },
+    {
+      icon: "🌱",
+      title: "The Greenhouse Is Its Own Country",
+      desc: "Most plant apps treat a greenhouse as a garden that happens to be warmer. It is not. It is a room with a roof, walls and its own weather, and almost everything changes at the door. No rain gets in, so every drop of water for the whole year is yours to carry. The season opens earlier and closes later. The afternoon runs far hotter than the forecast promises, which makes ventilating and shading real work rather than an afterthought. Still, humid air breeds mildew, botrytis and damping off. The pests are whitefly, spider mite and thrips — the ones that flourish precisely because their predators are outside, on the wrong side of the glass. And the pollinators are out there too, which is why a greenhouse tomato may need the vents open at flowering, or its flowers tapped by hand. Set a greenhouse up as its own garden and every plant inside it is advised accordingly, without your having to say so twice. An unheated greenhouse still freezes in January, and Garden Me will not pretend otherwise.",
     },
     {
       icon: "🗺️",
