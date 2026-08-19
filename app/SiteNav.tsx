@@ -21,6 +21,7 @@ export default function SiteNav() {
   const links = [
     { href: "/#features", label: "Features" },
     { href: "/#pricing", label: "Pricing" },
+    { href: "/hvorfor", label: "Why" },
     { href: "/faq", label: "FAQ" },
     { href: "/support", label: "Support" },
   ];

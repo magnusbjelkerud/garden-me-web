@@ -71,6 +71,31 @@ export default function Home() {
       desc: "You know your own garden. Reject an identification and Garden Me starts the reasoning over — never offering the same answer twice, and telling you which visible detail separates the new guess from the one you ruled out. You may also simply say what you think it is: “this is a plum tree, I am fairly certain” is treated as the strongest evidence in the room, because you are standing next to it and we are not. Being corrected costs you nothing. It rather ought not to.",
     },
     {
+      icon: "🐞",
+      title: "The Garden Heroes",
+      desc: "Every garden has a workforce, and most of it is never thanked. Bees, bumblebees, ladybirds, hoverflies, earthworms, spiders, hedgehogs. Garden Me keeps a page for them beside the one for the Gremlins, because the difference is worth stating plainly: gremlins arrive uninvited and eat your plants, and heroes arrive uninvited and eat the ones eating your plants.",
+    },
+    {
+      icon: "🏅",
+      title: "Employee of the Month",
+      desc: "One of them is picked each month — not the one you are most likely to see, but the one that most needs you right now. In June the ladybird, because the aphids have arrived. In October the hedgehog, looking for somewhere to sleep the winter away. You get one explanation and one small thing to do: leave the leaf pile, put water out, let the seed heads stand. The seasons turn the right way round below the equator, and nobody suggests a hedgehog to a fourth-floor balcony.",
+    },
+    {
+      icon: "🤝",
+      title: "Who to Plant Beside It",
+      desc: "Open any plant and it will tell you which welcome creatures it wants nearby, what to plant to bring them, and how far away to put it — a real measurement, not \u201cnearby\u201d. And if the plant cannot set fruit from its own pollen, which many apples, plums and pears cannot, it says so and names the cultivars that will do it. That sentence is the difference between an apple tree and an apple tree with apples on it.",
+    },
+    {
+      icon: "🧪",
+      title: "The Soil It Actually Wants",
+      desc: "Acid, neutral, or happy with lime. Clay, sand, or something in between. Wrong soil is the commonest way a plant dies after wrong watering, and the cruellest, because it takes two years and you blame yourself. In a pot you are told which compost to buy and how much. In the ground you are told how to work out what you have, what to dig in — or, honestly, that the plant belongs somewhere else.",
+    },
+    {
+      icon: "📝",
+      title: "The Wishlist",
+      desc: "You found something in the woods, in a shop, or in a friend\u2019s garden, and you are not taking it home today. Scan it anyway and put it on the list, with the photograph and an honest note on how much work it will be. Each one can say what it is waiting for \u2014 money, room, or time \u2014 because that is almost always the reason it stayed on the shelf.",
+    },
+    {
       icon: "🪴",
       title: "Garden, Terrace or Balcony",
       desc: "A window box has nothing in common with an acre. Tell us whether you tend a garden, a terrace, or a single balcony, and the watering, feeding and overwintering advice adapts to your soil — or your charming lack of it.",
