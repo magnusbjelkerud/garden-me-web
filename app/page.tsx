@@ -111,7 +111,12 @@ export default function Home() {
       title: "The Soil It Actually Wants",
       desc: "Acid, neutral, or happy with lime. Clay, sand, or something in between. Wrong soil is the commonest way a plant dies after wrong watering, and the cruellest, because it takes two years and you blame yourself. In a pot you are told which compost to buy and how much. In the ground you are told how to work out what you have, what to dig in — or, honestly, that the plant belongs somewhere else.",
     },
-    {
+        {
+      icon: "🎩",
+      title: "A Name of Your Own",
+      desc: "The app has to call you something, and \"gardener\" is what a form calls you. So give yourself a name instead — Tom the Garden Gnome, Her Ladyship of the Compost Heap, whatever you can defend at a dinner party — and it will use it. Once a week you will be addressed by a title you invented, which is a small and unreasonable pleasure, and there is no earthly reason an app should not offer it.",
+    },
+{
       icon: "📝",
       title: "The Wishlist",
       desc: "You found something in the woods, in a shop, or in a friend\u2019s garden, and you are not taking it home today. Scan it anyway and put it on the list, with the photograph and an honest note on how much work it will be. Each one can say what it is waiting for \u2014 money, room, or time \u2014 because that is almost always the reason it stayed on the shelf.",
