@@ -5,7 +5,7 @@ const serif = { fontFamily: "var(--font-serif)" };
 export const metadata = {
   title: "Questions & Answers — Garden Me",
   description:
-    "How Garden Me works: actions and what they cost, adding plants for free, several gardens in several countries, sharing with a neighbour, and how far the advice may be trusted.",
+    "How Garden Me works: actions and what they cost, adding plants for free, several gardens in several countries, sharing one garden between two telephones, what happens if you lose your phone, and how far the advice may be trusted.",
 };
 
 /** Everything here answers "how does this work". Anything that answers "something
@@ -26,7 +26,7 @@ const groups: { group: string; items: { h: string; p: string }[] }[] = [
       },
       {
         h: "What is an action?",
-        p: "One identification, one question to Garden Me, or one light check — anything where the app has to stop and think. Everything else is free and always will be: the reminders, the year wheel, the pest tracking, the shopping lists, the journal, the weather warnings.",
+        p: "One identification, one question to Garden Me, or one light check — anything where the app has to stop and think. Everything else is free and always will be: the reminders, the year wheel, the pest tracking, the journal, the weather warnings. The one exception is the shopping list, which is written afresh from your particular garden every time it changes — no two gardens being alike, it is the one answer we cannot work out once and share with everybody — so it comes with a subscription, or costs a single action.",
       },
       {
         h: "Must I spend an action to add a plant?",
@@ -94,6 +94,18 @@ const groups: { group: string; items: { h: string; p: string }[] }[] = [
       {
         h: "If the garden is only on my telephone, how does the neighbour see it?",
         p: "Because sharing uploads a copy. When you make a link we take a snapshot of that garden — the plant names, what wants doing, the notes for whoever is watering, and a small photograph of each plant — and place it on our server so that a browser may open it without an app or an account. It is the one occasion on which the garden leaves your telephone, and it is the only way a link could possibly work. The copy deletes itself after ninety days, or sooner if you ask.",
+      },
+      {
+        h: "Can the two of us keep the same garden?",
+        p: "Yes, and without inventing an account between you. One of you opens Share the garden and gets a code of twelve characters; the other types it in. From then on it is one garden on two telephones — she adds the plum tree, you tick off the pruning, and each of you sees the other. Both phones hold the whole garden and work without a signal; our server only keeps the last thing you agreed on. If a merge ever looks wrong, one button puts the garden back exactly as it stood before it.",
+      },
+      {
+        h: "Do the photographs travel too?",
+        p: "Between the two of you, yes — otherwise one of you photographs a new plant and the other is left looking at an empty frame. They stay on our server only for as long as you share, at most ninety days from the last time the phones spoke, and they are deleted the moment either of you stops. If you do not share your garden with anybody, not a single photograph ever leaves your telephone.",
+      },
+      {
+        h: "What happens if I lose my telephone?",
+        p: "The honest answer is that the garden goes with it, unless you have done one of two things. There is no account to recover it from — that is the same choice that spared you a password, and it cuts both ways. So take the export now and again and send it to yourself, or share the garden with a second telephone, in which case that phone is the copy and keeps itself up to date. The app will say this to you once, quietly, when your garden has grown large enough to be worth losing.",
       },
       {
         h: "What exactly does the neighbour get to see?",
