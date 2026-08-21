@@ -9,6 +9,8 @@ export default function TermsPage() {
     "We never recommend dangerous chemicals, pesticides, or other harmful substances. All recommendations are based on natural and eco-friendly methods.",
     "The app is provided “as is” without warranty. Always use common sense and consult experts for important decisions.",
     "Weather alerts are informational only and based on publicly available weather data. Garden Me is not responsible for garden damage resulting from weather events.",
+    "Sharing a garden with your household puts that garden, and the photographs in it, on our server so both telephones can reach it. Use it for your garden. It is not a file store, a messaging service, or a way to pass material between people, and using it as one — or to hold anything unlawful — ends your access and, where the law requires it, is reported. We may remove stored content and close a shared garden without notice where we have reason to believe this clause is being broken.",
+    "Photographs shared with a household are held for at most ninety days from when they were last synchronised, and are deleted when either of you stops sharing. Write to us through the support page to have anything removed sooner.",
   ];
 
   return (
