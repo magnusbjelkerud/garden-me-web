@@ -462,13 +462,24 @@ export default function Home() {
           <div className="max-w-2xl mx-auto mb-12">
             <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
               <strong>The app itself is free.</strong> Every reminder, the whole year&apos;s
-              calendar, the pest tracking, the shopping lists, the journal, the weather, sharing
-              the garden with a neighbour — all of it, for everyone, always.
+              calendar, the pest tracking, the journal, the weather, sharing the garden with your
+              household or with a neighbour — all of it, for everyone, always.
             </p>
             <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
               One thing costs: <strong>asking the app to think.</strong> Identifying a plant from
               a photograph, asking Garden Me a question, checking the light in a corner. We call
               those actions, and you begin with ten.
+            </p>
+            {/* Said plainly, because the app now says it plainly too. The list used to
+                answer a free account with "check your connection", which sent people to
+                the router for something the router could not fix. A limit nobody is told
+                about is indistinguishable from a fault. */}
+            <p className="text-lg leading-relaxed mb-6" style={{ color: "#4d5a2a" }}>
+              One thing is a subscriber&apos;s: <strong>the shopping list.</strong> Every other
+              answer we work out once and share with everybody who asks the same question — but
+              no two gardens are composed alike, so yours is written from scratch each time it
+              changes. It comes with Garden Me +, or you can buy a single list for one action,
+              with the price on the button before you press it.
             </p>
             <p className="leading-relaxed" style={{ color: "#9aa861" }}>
               Most of them go at the start. Loading a garden of twenty plants costs about twenty
