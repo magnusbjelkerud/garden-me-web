@@ -81,6 +81,10 @@ interface OpenMeteoResponse {
   };
   daily: {
     precipitation_sum: number[];
+    /* Uten denne kunne frostvarselet aldri vite noe om natten. Jobben så på
+       temperaturen i det øyeblikket den våknet, klokka seks om morgenen, og
+       sa «dekk til i natt» — om en natt den ikke hadde spurt om. */
+    temperature_2m_min: number[];
   };
 }
 
@@ -96,6 +100,16 @@ export async function GET(req: NextRequest) {
   if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  /* To kjøringer med hver sin jobb.
+     Morgenen tar det som gjelder dagen: regn, tørke, hete, årstidens
+     forberedelser. Kvelden har én oppgave, og bare én — frost. Skal noen rekke
+     å dekke til tomatene, må beskjeden komme før det blir mørkt, ikke klokka
+     seks neste morgen når natten er over.
+     `force` hopper over tolvtimersregelen, så en rettelse kan prøves på et
+     minutt i stedet for et døgn. Hemmeligheten kreves fortsatt. */
+  const evening = req.nextUrl.searchParams.get("evening") === "1";
+  const force = req.nextUrl.searchParams.get("force") === "1";
 
   const redis = Redis.fromEnv();
   const twelveHoursAgo = Date.now() - 12 * 60 * 60 * 1000;
@@ -113,7 +127,7 @@ export async function GET(req: NextRequest) {
       processed++;
       const user = await redis.get<UserData>(key);
       if (!user) continue;
-      if (user.lastSeen > twelveHoursAgo) continue;
+      const recentlySeen = user.lastSeen > twelveHoursAgo;
 
       const lang: Lang = isLang(user.lang) ? user.lang : "en";
 
@@ -121,7 +135,7 @@ export async function GET(req: NextRequest) {
         const weatherUrl =
           `https://api.open-meteo.com/v1/forecast?latitude=${user.lat}&longitude=${user.lon}` +
           `&current=temperature_2m,precipitation,weather_code` +
-          `&daily=precipitation_sum&past_days=7&forecast_days=10&timezone=auto`;
+          `&daily=precipitation_sum,temperature_2m_min&past_days=7&forecast_days=10&timezone=auto`;
 
         const weatherRes = await fetch(weatherUrl);
         if (!weatherRes.ok) continue;
@@ -135,15 +149,24 @@ export async function GET(req: NextRequest) {
         const rainToday = forecast10[0] ?? 0;
         const recentRain = past7.reduce((a, b) => a + (b ?? 0), 0);
 
+        /* Nattens laveste, ikke temperaturen akkurat nå. Rekkefølgen fra
+           Open-Meteo er sju dager bakover, så i dag, så framover — så indeks 8
+           er natten som kommer. */
+        const dailyMin: number[] = weather.daily.temperature_2m_min ?? [];
+        const tonightLow = dailyMin[8] ?? dailyMin[7] ?? temp;
+
         let alert: { title: string; body: string; type: AlertType } | null = null;
 
-        if (temp < 2) {
-          const names = (user.plants ?? []).slice(0, 3).map((p) => p.name).join(", ");
-          alert = {
-            type: "frost",
-            title: TITLES[lang].frost,
-            body: `${MSGS[lang].frost}${names ? `: ${names}` : ""}`,
-          };
+        if (evening) {
+          // Kveldskjøringen har én jobb. Alt annet venter til morgenen.
+          if (tonightLow < 2) {
+            const names = (user.plants ?? []).slice(0, 3).map((p) => p.name).join(", ");
+            alert = {
+              type: "frost",
+              title: TITLES[lang].frost,
+              body: `${MSGS[lang].frost}${names ? `: ${names}` : ""} (${Math.round(tonightLow)}°C)`,
+            };
+          }
         } else if (rainToday > 8 || precipitation > 5) {
           const slugNames = (user.devils ?? [])
             .filter((d) => d.type === "slug")
@@ -178,6 +201,14 @@ export async function GET(req: NextRequest) {
 
         if (!alert) continue;
 
+        /* Tolvtimersregelen finnes for å ikke fortelle folk noe de nettopp har
+           sett i appen, og den er riktig for råd. Men den var festet til om
+           noen ÅPNET appen, ikke til om de vet hva natten bringer — så en som
+           huket av en oppgave klokka elleve mistet frostvarselet klokka seks.
+           Frost og hete kan drepe over natten. De får avbryte. */
+        const mayInterrupt = force || !recentlySeen || alert.type === "frost" || alert.type === "heat";
+        if (!mayInterrupt) continue;
+
         alert.body = `${alert.body}. ${ASIDES[lang][ASIDE_INDEX[alert.type]]}`;
 
         const pushRes = await fetch("https://exp.host/--/api/v2/push/send", {
@@ -198,5 +229,5 @@ export async function GET(req: NextRequest) {
     }
   } while (cursor !== 0);
 
-  return NextResponse.json({ ok: true, processed, sent });
+  return NextResponse.json({ ok: true, run: evening ? "evening" : "morning", forced: force, processed, sent });
 }
