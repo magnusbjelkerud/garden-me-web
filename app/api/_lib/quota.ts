@@ -5,6 +5,11 @@ export type Kind = "plant" | "plant_retry" | "devil" | "devil_retry" | "ask" | "
 export interface KindConfig {
   model: string;
   maxTokens: number;
+  /** Hvor mye modellen får tænke før den svarer. Utelatt = modellens standard.
+   *  Det er tenkingen som koster, ikke modellen: et bytte fra Sonnet til Opus er
+   *  1,65 ganger, dyp tenking er nær fire. Derfor står den lavt der brukeren
+   *  betaler og høyt der vi retter vår egen feil. */
+  effort?: "low" | "medium" | "high" | "xhigh" | "max";
   /** Credits this action costs the user. 0 = automatic background work, capped instead. */
   cost: 0 | 1;
   /** Only meaningful when cost is 0 — the allowance itself comes from the tier. */
@@ -20,12 +25,20 @@ export const KINDS: Record<Kind, KindConfig> = {
   // carries toxicity, effort, effortSummary and a starter kit with quantities,
   // in languages wordier than English. Too tight, and a truncated reply is
   // worse than a slow one: it costs a credit and delivers nothing.
-  plant:     { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 1, capWindow: "month" },
+  /* Bytt fra Sonnet 4.6 til Opus 5 etter ekte tilbakemelding: jasmin ble tatt for
+     plommetre, marikåpe for geranium. Begge er feil ART, ikke uklar sort, og begge
+     hviler på fin bladstruktur — nettopp det et syn som resonnerer gjør bedre.
+     Lav innsats, fordi tenketokens er utdata og utdata er der pengene ligger. */
+  plant:     { model: "claude-opus-5", maxTokens: 6000, effort: "low", cost: 1, capWindow: "month" },
   // "That is definitely not it" — a second look after the user rejects an
   // identification. Free, because charging someone to correct our own mistake
   // is a poor trade: it costs us ~0.3 kr and buys back the moment the app
   // looked wrong. Capped per day so it cannot be farmed as free identification.
-  plant_retry: { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, capWindow: "day" },
+  /* Her VET vi at det er vanskelig: eieren har sagt at vi tok feil, og fortalt hva
+     han ser. Gratis for ham og med eget dagstak, så den kan få tænke seg om
+     ordentlig uten å røre marginen. Dyr resonnering brukt der den er kjent
+     nødvendig, i stedet for på hver bregne noen peker på. */
+  plant_retry: { model: "claude-opus-5", maxTokens: 12000, effort: "high", cost: 0, capWindow: "day" },
   devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
   /* «Nei, dette er feil» for en plageånd. Fantes for planter fra første dag og
      ikke for dette, så en gjenkjenning som svarte «hagehelt» på noe eieren ville

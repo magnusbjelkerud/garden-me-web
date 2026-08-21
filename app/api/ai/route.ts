@@ -232,6 +232,8 @@ export async function POST(req: NextRequest) {
     const message = await anthropic.messages.create({
       model: config.model,
       max_tokens: config.maxTokens,
+      // Utelatt for slag som ikke setter den — da gjelder modellens egen standard.
+      ...(config.effort ? { output_config: { effort: config.effort } } : {}),
       ...(system ? { system } : {}),
       messages: messages as Anthropic.MessageParam[],
     });
