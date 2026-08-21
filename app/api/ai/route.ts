@@ -3,6 +3,7 @@ import { createHash } from "crypto";
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { CAP_FIELD, FREE_WELCOME, KINDS, TIERS, isKind, month, tierOf, today } from "../_lib/quota";
+import type { Kind } from "../_lib/quota";
 
 // Vision calls take 20-40s. Hobby plan caps functions at 60s.
 // A plant reply is long — identity, care, a year of tasks, a starter kit and
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
     return fail(413, "TOO_LARGE", "Request body too large");
   }
 
-  let body: { deviceId?: unknown; kind?: unknown; messages?: unknown; system?: unknown };
+  let body: { deviceId?: unknown; kind?: unknown; messages?: unknown; system?: unknown; spend?: unknown };
   try {
     body = JSON.parse(raw);
   } catch {
@@ -74,6 +75,10 @@ export async function POST(req: NextRequest) {
   }
 
   const { deviceId, kind, messages, system } = body;
+  // Sant bare når eieren selv trykket på knappen som sa hva den koster.
+  // Bakgrunnsjobbene sender den aldri, og en forespørsel som lyver om den
+  // kjøper ingenting den ikke allerede kunne fått.
+  const spend = body.spend === true;
 
   if (typeof deviceId !== "string" || deviceId.length < 8 || deviceId.length > 64) {
     return fail(400, "BAD_DEVICE_ID", "Missing or malformed deviceId");
@@ -139,6 +144,14 @@ export async function POST(req: NextRequest) {
   const freeKey = `spent:free:${deviceId}`;
   const balKey = `bal:${deviceId}`;
 
+  /* Kinds a user may deliberately pay for once the automatic allowance is
+     spent. Only the shopping list: the others (weather, follow-ups, the sowing
+     calendar) are things the app fetches on its own, and something nobody
+     pressed must never be purchasable on their behalf. */
+  const SPENDABLE = new Set<Kind>(["equipment"]);
+
+  let charge = config.cost === 1;
+
   if (config.cost === 0) {
     // Automatic background work (weather, shopping list). The user never asked
     // for it, so it must never cost them a credit — capped instead.
@@ -149,9 +162,25 @@ export async function POST(req: NextRequest) {
     const used = await redis.incr(capKey);
     if (used === 1) await redis.expire(capKey, MONTH_TTL);
     if (used > cap) {
-      return fail(429, "AUTO_CAP", "Automatic refresh limit reached");
+      // Give the reservation back. INCR is how the cap is claimed atomically,
+      // so a refusal that keeps the number leaves a counter that only ever
+      // climbs — and a free account, whose cap is nought, would carry a
+      // tally of every time it was told no.
+      await redis.decr(capKey);
+      /* The list is free and automatic for subscribers. Everyone else may buy
+         one outright: they pressed the button, the price was on it, and one
+         action is what everything else in the app costs. Without this, a
+         credit pack bought expressly to get the list would have delivered
+         nothing — the packs write to the balance, and the list reads the
+         subscription. */
+      if (!(spend && SPENDABLE.has(kind))) {
+        return fail(429, "AUTO_CAP", "Automatic refresh limit reached");
+      }
+      charge = true;
     }
-  } else if (premium) {
+  }
+
+  if (charge && premium) {
     const used = await redis.incr(monthKey);
     if (used === 1) await redis.expire(monthKey, MONTH_TTL);
     if (used > allowance.monthly) {
@@ -168,7 +197,7 @@ export async function POST(req: NextRequest) {
     } else {
       spent = "month";
     }
-  } else {
+  } else if (charge) {
     const used = await redis.incr(freeKey);
     if (used === 1) await redis.expire(freeKey, LIFETIME_TTL);
     if (used > FREE_WELCOME) {
