@@ -54,6 +54,10 @@ const groups: { group: string; items: { h: string; p: string }[] }[] = [
         p: "Yes, in iOS Settings under your name, then Subscriptions. Moving up takes effect at once; moving down takes effect when the month you have already paid for runs out. You may also stop entirely, and everything you have recorded remains.",
       },
       {
+        h: "If I do not use my twenty-five actions this month, do they carry over?",
+        p: "No. A subscription gives you that many actions every month, and the count starts again on the first — twenty-five in August, twenty-five in September, not three hundred saved up by Christmas. It is a monthly allowance rather than a bank account, which is what makes it cheap per action. Bought actions behave the opposite way: those never expire and simply sit there, and the app spends the month's allowance first, so a pack you bought in spring is still waiting after a summer of subscribing.",
+      },
+      {
         h: "Twenty actions costs about the same as a month of Silver. Why?",
         p: "Because you are buying two different things. Silver is sixty actions a month, every month, and it stops when you stop it. Twenty actions is twenty actions, and they sit there until you use them — through a winter, or two, or until you remember the app exists again in April. A subscription is always the better rate per action; that is rather the point of it. The packs are for gardens that want attention twice a year, where a monthly bill would be an insult.",
       },
