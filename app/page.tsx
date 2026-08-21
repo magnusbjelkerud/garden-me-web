@@ -111,12 +111,17 @@ export default function Home() {
       title: "The Soil It Actually Wants",
       desc: "Acid, neutral, or happy with lime. Clay, sand, or something in between. Wrong soil is the commonest way a plant dies after wrong watering, and the cruellest, because it takes two years and you blame yourself. In a pot you are told which compost to buy and how much. In the ground you are told how to work out what you have, what to dig in — or, honestly, that the plant belongs somewhere else.",
     },
-        {
+    {
       icon: "🎩",
       title: "A Name of Your Own",
       desc: "The app has to call you something, and \"gardener\" is what a form calls you. So give yourself a name instead — Tom the Garden Gnome, Her Ladyship of the Compost Heap, whatever you can defend at a dinner party — and it will use it. Once a week you will be addressed by a title you invented, which is a small and unreasonable pleasure, and there is no earthly reason an app should not offer it.",
     },
-{
+    {
+      icon: "⇅",
+      title: "Put Them in the Order You Want",
+      desc: "The heart floats a favourite to the top, which is a sensible default and remains the default — right up until the first time you move a plant yourself. From that moment the order is yours and the heart goes back to being merely a heart, because two rules quarrelling over one list gives you the worst of both: you drag the rose to the top and the app puts it back, on the grounds that it is not marked. Three buttons rather than a long press and a drag — to the top, up one, down one — all reachable with a thumb while the other hand holds something muddy. Anything planted after you have arranged matters has no place yet, and queues politely at the end.",
+    },
+    {
       icon: "📝",
       title: "The Wishlist",
       desc: "You found something in the woods, in a shop, or in a friend\u2019s garden, and you are not taking it home today. Scan it anyway and put it on the list, with the photograph and an honest note on how much work it will be. Each one can say what it is waiting for \u2014 money, room, or time \u2014 because that is almost always the reason it stayed on the shelf.",
