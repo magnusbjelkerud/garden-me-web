@@ -29,7 +29,15 @@ export const KINDS: Record<Kind, KindConfig> = {
   devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
   ask:       { model: "claude-sonnet-4-6", maxTokens: 700,  cost: 1, capWindow: "month" },
   light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
-  equipment: { model: "claude-sonnet-4-6", maxTokens: 2500, cost: 0, capWindow: "month" },
+  /* Handlelista er den dyreste bakgrunnsjobben vi har, og nesten hele prisen er
+     teksten modellen skriver: 8-14 varer med en begrunnelse hver, rundt 1800
+     utdata-tokens. Haiku 4.5 koster $1/$5 per million mot Sonnet 4.6 sin $3/$15
+     - nøyaktig tre ganger billigere på begge - og "list opp det hagen trenger"
+     er en oppgave den skal klare.
+     Modellen står i en miljøvariabel og ikke i koden, fordi dette er et bytte
+     man må kunne angre uten en utrulling: blir listene tynnere enn de var, er
+     EQUIPMENT_MODEL=claude-sonnet-4-6 veien tilbake, og den virker med en gang. */
+  equipment: { model: process.env.EQUIPMENT_MODEL ?? "claude-haiku-4-5", maxTokens: 2500, cost: 0, capWindow: "month" },
   weather:   { model: "claude-sonnet-4-6", maxTokens: 800,  cost: 0, capWindow: "day" },
   // Who is likely to eat this plant. Split out of the identification, which
   // it had grown long enough to push past a minute. Free and capped rather

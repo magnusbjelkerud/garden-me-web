@@ -42,11 +42,16 @@ const CACHE_TTL: Partial<Record<string, number>> = {
 /** Text-only requests only. An image is unique to the person who took it, so
  *  it would never be hit again and hashing megabytes of base64 to discover
  *  that would cost more than it saves. */
-function cacheKeyFor(kind: string, system: string | undefined, messages: unknown[]): string | null {
+function cacheKeyFor(kind: string, model: string, system: string | undefined, messages: unknown[]): string | null {
   if (!CACHE_TTL[kind]) return null;
   const body = JSON.stringify(messages);
   if (body.includes('"type":"image"')) return null;
-  return `ans:${kind}:${createHash("sha256").update((system ?? "") + body).digest("hex").slice(0, 32)}`;
+  /* The model belongs in the key. Without it, changing the model for a kind
+     keeps serving the old model's answers for as long as the cache lives --
+     up to a week for the shopping list -- so a switch looks like it did
+     nothing, and a rollback looks like it did nothing either. Two models are
+     two different answers to the same question. */
+  return `ans:${kind}:${createHash("sha256").update(JSON.stringify([model, system ?? "", body])).digest("hex").slice(0, 32)}`;
 }
 
 function fail(status: number, code: string, message: string, extra?: object) {
@@ -125,7 +130,7 @@ export async function POST(req: NextRequest) {
   /* Looked up before the quota is touched. A hit costs us nothing, so it must
      not consume the owner's allowance either — but the rate limits above still
      apply, because a cache is not a reason to let anyone hammer the door. */
-  const cacheKey = cacheKeyFor(kind, system as string | undefined, messages as unknown[]);
+  const cacheKey = cacheKeyFor(kind, config.model, system as string | undefined, messages as unknown[]);
   if (cacheKey) {
     const hit = await redis.get<{ content: unknown }>(cacheKey);
     if (hit?.content) {
