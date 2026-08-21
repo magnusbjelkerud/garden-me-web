@@ -137,6 +137,11 @@ export default function Home() {
       desc: "Most plant apps treat a greenhouse as a garden that happens to be warmer. It is not. It is a room with a roof, walls and its own weather, and almost everything changes at the door. No rain gets in, so every drop of water for the whole year is yours to carry. The season opens earlier and closes later. The afternoon runs far hotter than the forecast promises, which makes ventilating and shading real work rather than an afterthought. Still, humid air breeds mildew, botrytis and damping off. The pests are whitefly, spider mite and thrips — the ones that flourish precisely because their predators are outside, on the wrong side of the glass. And the pollinators are out there too, which is why a greenhouse tomato may need the vents open at flowering, or its flowers tapped by hand. Set a greenhouse up as its own garden and every plant inside it is advised accordingly, without your having to say so twice. An unheated greenhouse still freezes in January, and Garden Me will not pretend otherwise.",
     },
     {
+      icon: "👫",
+      title: "Two Phones, One Garden",
+      desc: "A garden is usually kept by two people, and the app has spent its life insisting it belonged to a telephone. Now it does not: one code of twelve characters, typed into the other phone, and you are tending the same garden. No account, no email, no invitation — there is nobody to sign up as. Both phones hold the whole garden and work without a signal; the server only keeps the last thing you agreed on. She adds the plum tree, you tick off the pruning, and each sees the other. The photographs travel too, so the plant she bought this morning is not an empty frame on your side of the kitchen table. And if a merge ever looks wrong, one button puts the garden back exactly as it stood before it.",
+    },
+    {
       icon: "🗺️",
       title: "A Garden Here, a Cabin There",
       desc: "Keep as many gardens as you have places, and give each one its own country. The cabin in Finland is then told about Finnish winters rather than about yours, and a garden below the equator is not warned of frost in July — the seasons turn the right way round on their own. Switch between them from the header; every reminder, warning and piece of advice follows.",
