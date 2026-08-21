@@ -1,6 +1,6 @@
 import { Redis } from "@upstash/redis";
 
-export type Kind = "plant" | "plant_retry" | "devil" | "ask" | "light" | "equipment" | "weather" | "threats" | "sowing";
+export type Kind = "plant" | "plant_retry" | "devil" | "devil_retry" | "ask" | "light" | "equipment" | "weather" | "threats" | "sowing";
 
 export interface KindConfig {
   model: string;
@@ -27,6 +27,13 @@ export const KINDS: Record<Kind, KindConfig> = {
   // looked wrong. Capped per day so it cannot be farmed as free identification.
   plant_retry: { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 0, capWindow: "day" },
   devil:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
+  /* «Nei, dette er feil» for en plageånd. Fantes for planter fra første dag og
+     ikke for dette, så en gjenkjenning som svarte «hagehelt» på noe eieren ville
+     bli kvitt, var en blindvei. Å ta betalt for å rette vår egen feil er en dårlig
+     handel: det koster oss ~0,3 kr og kjøper tilbake øyeblikket appen så gal ut.
+     Fritt, men med samme dagstak som planteomtanken, så det ikke kan høstes som
+     gratis gjenkjenning. */
+  devil_retry: { model: "claude-sonnet-4-6", maxTokens: 1200, cost: 0, capWindow: "day" },
   ask:       { model: "claude-sonnet-4-6", maxTokens: 700,  cost: 1, capWindow: "month" },
   light:     { model: "claude-sonnet-4-6", maxTokens: 1000, cost: 1, capWindow: "month" },
   /* Handlelista er den dyreste bakgrunnsjobben vi har, og nesten hele prisen er
@@ -100,6 +107,7 @@ export const CAP_FIELD: Partial<Record<Kind, keyof TierConfig>> = {
   // refused by the quota before it reached the model — the owner pressed
   // "think again", nothing changed, and nothing said why.
   plant_retry: "retryPerDay",
+  devil_retry: "retryPerDay",
   weather: "weatherPerDay",
   equipment: "equipmentPerMonth",
   threats: "followupPerMonth",
