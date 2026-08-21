@@ -31,7 +31,8 @@ export default function PrivacyPage() {
       h: "Sharing a garden",
       body: [
         "Making a link for a neighbour uploads a copy of that garden to our server — plant names, what wants doing, the notes for whoever is watering, and a small photograph of each plant so the helper can tell one from another. It is the one time a garden leaves the device, and it is the only way a link could open in a browser without an app or an account.",
-        "The photographs are thumbnails, 160 pixels wide, made from the picture you chose as that plant's cover. Full-size photographs never leave the phone.",
+        "Those photographs are thumbnails, 160 pixels wide, made from the picture you chose as that plant's cover. A helper's page never receives a full-size one.",
+        "Sharing with someone in your household works differently, because it is the same garden rather than a snapshot of it. The garden itself is held on our server so both telephones can reach it, and since August 2026 the photographs travel with it — otherwise one of you photographs a new plant and the other is left looking at an empty frame. They stay only for as long as you share, and are deleted the moment either of you stops. If you do not share your garden with anybody, not a single photograph leaves your telephone.",
         "The copy expires ninety days after it was last updated, and can be deleted sooner on request. Anyone holding the link can read it, so treat it as you would any unlisted web page.",
       ],
     },
