@@ -25,11 +25,17 @@ export const KINDS: Record<Kind, KindConfig> = {
   // carries toxicity, effort, effortSummary and a starter kit with quantities,
   // in languages wordier than English. Too tight, and a truncated reply is
   // worse than a slow one: it costs a credit and delivers nothing.
-  /* Bytt fra Sonnet 4.6 til Opus 5 etter ekte tilbakemelding: jasmin ble tatt for
-     plommetre, marikåpe for geranium. Begge er feil ART, ikke uklar sort, og begge
-     hviler på fin bladstruktur — nettopp det et syn som resonnerer gjør bedre.
-     Lav innsats, fordi tenketokens er utdata og utdata er der pengene ligger. */
-  plant:     { model: "claude-opus-5", maxTokens: 6000, effort: "low", cost: 1, capWindow: "month" },
+  /* Tilbake på Sonnet 4.6, og med vilje.
+     Opus 5 med lav tenking doblet prisen per gjenkjenning, fra 0,26 til rundt
+     0,55 kr, og gull går i minus i verste tilfelle på det tallet. Den ekte
+     feilen — jasmin lest som plommetre — hadde dessuten en billigere årsak:
+     prompten visste ikke hvilken måned det var, så den lette etter blomster som
+     hadde vært borte i seks uker. Den er rettet, og det er en engangskostnad på
+     null.
+     Der modellen fortsatt kommer til kort, sier appen det nå høyt i stedet for
+     å gjette: se `seasonNote`. En ærlig usikkerhet er verdt mer enn et dyrere
+     svar som fortsatt kan ta feil. */
+  plant:     { model: "claude-sonnet-4-6", maxTokens: 3000, cost: 1, capWindow: "month" },
   // "That is definitely not it" — a second look after the user rejects an
   // identification. Free, because charging someone to correct our own mistake
   // is a poor trade: it costs us ~0.3 kr and buys back the moment the app
